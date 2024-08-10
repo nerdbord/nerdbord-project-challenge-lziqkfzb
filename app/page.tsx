@@ -1,14 +1,13 @@
-import {Header} from '@/components/header';
+import { Header } from '@/components/Header';
+import { HomeInput } from '@/components/HomeInput';
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <Header />
-      <section className='bg-ct-blue-600 min-h-screen pt-20'>
-        <div className='max-w-4xl mx-auto bg-ct-dark-100 rounded-md h-[20rem] flex justify-center items-center'>
-          <p className='text-3xl font-semibold'>
-            Implement Authentication with Supabase in Next.js 14
-          </p>
+      <section className="min-h-screen bg-ct-blue-600 pt-20">
+        <div className="mx-auto flex h-[20rem] max-w-4xl flex-col items-center justify-center rounded-md bg-ct-dark-100">
+          <HomeInput />
         </div>
       </section>
     </>

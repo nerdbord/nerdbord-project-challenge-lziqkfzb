@@ -1,4 +1,4 @@
-import { Header } from '@/components/header';
+import { Header } from '@/components/Header';
 import getUserSession from '@/lib/getUserSession';
 import { redirect } from 'next/navigation';
 
