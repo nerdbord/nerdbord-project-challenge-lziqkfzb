@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import getUserSession from '@/lib/getUserSession';
 import createSupabaseServerClient from '@/lib/supabase/server';
+import { permanentMarker } from '@/app/fonts';
 
 export const Header = async () => {
   const { data } = await getUserSession();
@@ -15,8 +16,11 @@ export const Header = async () => {
     <header className="h-20 bg-white">
       <nav className="container flex h-full items-center justify-between">
         <div>
-          <Link href="/" className="text-2xl font-semibold text-ct-dark-600">
-            App Name
+          <Link
+            href="/"
+            className={`${permanentMarker.className} text-2xl font-semibold text-ct-dark-600`}
+          >
+            FormoInator
           </Link>
         </div>
         <ul className="flex items-center space-x-4">

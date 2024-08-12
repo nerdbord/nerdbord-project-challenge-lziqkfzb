@@ -1,10 +1,28 @@
-import { HTMLInputTypeAttribute } from 'react';
-
-export type formJSONType = {
+export type InputJSONType = {
   name: string;
   label: string;
   placeholder?: string;
   required: boolean;
-  type: HTMLInputTypeAttribute;
+  type: InputTypeAttribute;
   options?: string[];
+  minValue?: number;
+  maxValue?: number;
+  keyID: string;
 };
+
+export type InputTypeAttribute =
+  | 'checkbox'
+  | 'color'
+  | 'date'
+  | 'email'
+  | 'password'
+  | 'data'
+  | 'number'
+  | 'radio'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week'
+  | 'month'
+  | 'tel'
+  | 'select';
