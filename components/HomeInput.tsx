@@ -1,14 +1,17 @@
 'use client';
 import { useState, ChangeEvent } from 'react';
-import type { formJSONType } from '@/lib/types';
+import type { InputJSONType } from '@/lib/types';
+import { GeneratedForm } from './GeneratedForm';
+
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export const HomeInput = () => {
-  const [formJSON, setFormJSON] = useState<formJSONType[]>([]);
+  const [formFields, setFormFields] = useState<InputJSONType[]>([]);
+  const [formName, setFormName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [prompt, setPrompt] = useState(
-    'potrzebuje formularz zbierający date: imię, data urodzenia, adres zamieszkania, płeć',
+    'potrzebuję zbierać danę użytkowników, imię, płeć, data urodzenia, ulubiony kolor, czy poleciłby naszą firmę, potwierdzenie o przeczytaniu regulaminu, jak nas ocenia w skalo od jeden do pięć',
   );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,18 +31,21 @@ export const HomeInput = () => {
     });
     const json = await response.json();
 
-    setFormJSON(json.elements);
+    setFormFields(json.elements);
+    setFormName(json.formName);
     setIsLoading(false);
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input value={prompt} onChange={handleInputChange} />
-      <button type="submit" className="bg-lime-400 outline-dashed outline-4 outline-green-600">
-        Generate
-      </button>
-
-      {isLoading ? 'Loading...' : JSON.stringify(formJSON)}
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <input value={prompt} onChange={handleInputChange} />
+        <button type="submit" className="bg-lime-400 outline-dashed outline-4 outline-green-600">
+          Generate
+        </button>
+        {isLoading ? 'Loading...' : JSON.stringify(formFields)}
+      </form>
+      {formName && <GeneratedForm formFields={formFields} formName={formName} />}
+    </>
   );
 };

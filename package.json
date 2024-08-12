@@ -17,7 +17,6 @@
     "@hookform/resolvers": "^3.3.4",
     "@supabase/ssr": "^0.0.10",
     "ai": "^3.3.3",
-    "chakra-dayzed-datepicker": "^0.3.0",
     "framer-motion": "^11.3.24",
     "next": "14.1.0",
     "react": "^18",

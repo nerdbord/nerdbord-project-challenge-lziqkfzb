@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-
-const inter = Inter({ subsets: ['latin'] });
+import { rowdies, permanentMarker } from './fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={inter.className}>
+    <html lang="en">
+      <body
+        className={`${rowdies.className} ${rowdies.variable} ${permanentMarker.variable} font-light`}
+      >
         {children}
         <Toaster />
       </body>
