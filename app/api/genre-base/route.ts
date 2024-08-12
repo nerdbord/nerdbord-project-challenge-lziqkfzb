@@ -45,9 +45,9 @@ export async function POST(req: Request) {
     }),
   });
 
-  // result.object.fields.forEach((field) => {
-  //   field.keyID = nanoid();
-  // });
+  result.object.fields.forEach((field) => {
+    field.keyID = nanoid();
+  });
 
   return result.toJsonResponse();
 }

@@ -66,7 +66,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                           <Stack spacing={[1, 5]} direction={['column', 'row']}>
                             {input.options.map((option, index) => (
                               <Checkbox
-                                key={`${option}${index}`}
+                                key={input.keyID + option}
                                 name={`${input.name}.${option}`}
                                 value={option}
                               >
@@ -167,7 +167,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                           <FormLabel>{input.label}</FormLabel>
                           <Select placeholder="Select option">
                             {input?.options.map((option, index) => (
-                              <option key={`${option}${index}`} value={option}>
+                              <option key={input.keyID + option} value={option}>
                                 {option}
                               </option>
                             ))}
@@ -184,7 +184,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                           <RadioGroup name={input.name}>
                             <Stack direction="row">
                               {input?.options.map((option, index) => (
-                                <Radio key={`${option}${index}`} value={option}>
+                                <Radio key={input.keyID + option} value={option}>
                                   {option}
                                 </Radio>
                               ))}
@@ -195,7 +195,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                     }
 
                   default:
-                    <> UNEXPECTED TYPE OF FIELD </>;
+                    <p key={input.keyID}> UNEXPECTED TYPE OF FIELD </p>;
                 }
               })}
               <Button type="submit" variant="solid">
