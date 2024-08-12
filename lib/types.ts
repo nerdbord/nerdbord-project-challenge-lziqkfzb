@@ -7,6 +7,7 @@ export type InputJSONType = {
   options?: string[];
   minValue?: number;
   maxValue?: number;
+  keyID: string;
 };
 
 export type InputTypeAttribute =

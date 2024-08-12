@@ -1,6 +1,7 @@
 import { generateObject } from 'ai';
 import { model } from '@/lib/ai_sdk/openai';
 import { z } from 'zod';
+import { nanoid } from 'nanoid';
 
 export async function POST(req: Request) {
   const { prompt }: { prompt: string } = await req.json();
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
     maxTokens: 512,
     schema: z.object({
       formName: z.string(),
-      elements: z.array(
+      fields: z.array(
         z.object({
           name: z.string(),
           label: z.string(),
@@ -38,9 +39,15 @@ export async function POST(req: Request) {
           options: z.array(z.union([z.string(), z.number()])).optional(),
           minValue: z.number().optional(),
           maxValue: z.number().optional(),
+          keyID: z.string().optional(),
         }),
       ),
     }),
   });
+
+  // result.object.fields.forEach((field) => {
+  //   field.keyID = nanoid();
+  // });
+
   return result.toJsonResponse();
 }

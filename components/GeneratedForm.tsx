@@ -1,5 +1,5 @@
 'use client';
-
+import { FormEvent } from 'react';
 import type { InputJSONType } from '@/lib/types';
 import {
   FormControl,
@@ -24,15 +24,19 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-// Allow streaming responses up to 30 seconds
 interface GeneratedFormProps {
   formFields: InputJSONType[];
   formName: string;
 }
 
 export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
   };
 
   return (
@@ -42,21 +46,21 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
           <CardHeader>
             <Heading size="md">{formName}</Heading>
           </CardHeader>
-          <form>
+          <form onSubmit={onSubmit}>
             <VStack spacing={4}>
               {formFields.map((input) => {
                 switch (input.type) {
                   case 'checkbox':
                     if (!input.options || input.options?.length < 2) {
                       return (
-                        <FormControl isRequired={input.required}>
+                        <FormControl isRequired={input.required} key={input.keyID}>
                           <FormLabel>{input.label}</FormLabel>
                           <Checkbox isRequired={input.required} name={input.name}></Checkbox>
                         </FormControl>
                       );
-                    } // TODO: łapać i recznie wpisywać przy onSubmit
+                    }
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <CheckboxGroup>
                           <Stack spacing={[1, 5]} direction={['column', 'row']}>
@@ -75,35 +79,35 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                     );
                   case 'color':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="color" name={input.name} />
                       </FormControl>
                     );
                   case 'date':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="date" name={input.name} />
                       </FormControl>
                     );
                   case 'email':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="email" name={input.name} />
                       </FormControl>
                     );
                   case 'password':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="password" name={input.name} />
                       </FormControl>
                     );
                   case 'number':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <NumberInput min={input.minValue} max={input.maxValue}>
                           <NumberInputField />
@@ -116,42 +120,42 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                     );
                   case 'text':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="text" name={input.name} placeholder={input.placeholder} />
                       </FormControl>
                     );
                   case 'time':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel> <Input type="time" name={input.name} />
                         ;
                       </FormControl>
                     );
                   case 'url':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="url" name={input.name} />;
                       </FormControl>
                     );
                   case 'week':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel> <Input type="week" name={input.name} />
                         ;
                       </FormControl>
                     );
                   case 'month':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="month" name={input.name} />;
                       </FormControl>
                     );
                   case 'tel':
                     return (
-                      <FormControl isRequired={input.required}>
+                      <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <Input type="tel" name={input.name} />;
                       </FormControl>
@@ -159,7 +163,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                   case 'select': {
                     if (input.options) {
                       return (
-                        <FormControl isRequired={input.required}>
+                        <FormControl isRequired={input.required} key={input.keyID}>
                           <FormLabel>{input.label}</FormLabel>
                           <Select placeholder="Select option">
                             {input?.options.map((option, index) => (
@@ -175,7 +179,7 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                   case 'radio':
                     if (input.options) {
                       return (
-                        <FormControl isRequired={input.required}>
+                        <FormControl isRequired={input.required} key={input.keyID}>
                           <FormLabel>{input.label}</FormLabel>
                           <RadioGroup name={input.name}>
                             <Stack direction="row">
@@ -191,9 +195,9 @@ export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
                     }
 
                   default:
-                    <></>;
+                    <> UNEXPECTED TYPE OF FIELD </>;
                 }
-              })}{' '}
+              })}
               <Button type="submit" variant="solid">
                 Submit
               </Button>

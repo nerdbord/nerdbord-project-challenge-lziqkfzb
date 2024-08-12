@@ -31,7 +31,7 @@ export const HomeInput = () => {
     });
     const json = await response.json();
 
-    setFormFields(json.elements);
+    setFormFields(json.fields);
     setFormName(json.formName);
     setIsLoading(false);
   };
@@ -45,7 +45,7 @@ export const HomeInput = () => {
         </button>
         {isLoading ? 'Loading...' : JSON.stringify(formFields)}
       </form>
-      {formName && <GeneratedForm formFields={formFields} formName={formName} />}
+      {formFields.length > 0 && <GeneratedForm formFields={formFields} formName={formName} />}
     </>
   );
 };
