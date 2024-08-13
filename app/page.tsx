@@ -1,5 +1,5 @@
 import { Header } from '@/components/Header';
-import { HomeInput } from '@/components/HomeInput';
+import { HomeInput } from '@/app/HomeInput';
 
 export default async function Home() {
   return (

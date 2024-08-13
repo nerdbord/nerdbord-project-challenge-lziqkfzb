@@ -1,6 +1,6 @@
-import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
 import { Header } from '@/components/Header';
 import { cookies } from 'next/headers';
+import { EditFormTool } from './EditFormTool';
 
 export default async function Page() {
   const formJSON = cookies().get('formJSON')?.value;
@@ -13,9 +13,9 @@ export default async function Page() {
   return (
     <>
       <Header />
-      <section className="min-h-screen bg-ct-blue-600 py-20">
+      <section className="flex min-h-screen flex-row justify-between bg-ct-blue-600 py-20">
         <div className="mx-auto flex min-h-[20rem] max-w-4xl flex-col items-center justify-center rounded-md bg-ct-dark-100">
-          <FormGeneratedByUser formFields={fields} formName={formName} />
+          <EditFormTool formFields={fields} formName={formName} />
         </div>
       </section>
     </>
