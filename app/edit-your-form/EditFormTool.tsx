@@ -3,6 +3,7 @@ import { useState, ChangeEvent } from 'react';
 import type { InputJSONType, InputTypeAttribute } from '@/lib/types';
 import { availableInputTypeArray } from '@/lib/types';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
+import { nanoid } from 'nanoid';
 
 interface EditFormToolProps {
   formFields: InputJSONType[];
@@ -80,14 +81,37 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   const handleDeleteOption = (keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
-    if (!newEditedFieldsValues[fieldIndex].options) return;
+    if (!newEditedFieldsValues[fieldIndex].options) {
+      return;
+    }
     newEditedFieldsValues[fieldIndex].options.pop();
+    setEditedFields(newEditedFieldsValues);
+  };
+
+  const handleAddEmptyField = () => {
+    const newEditedFieldsValues = [...editedFields];
+    newEditedFieldsValues.push({
+      keyID: nanoid(),
+      label: 'Etykieta',
+      type: 'text',
+      name: 'newField',
+      required: false,
+    });
+    console.log('Dodano');
+    setEditedFields(newEditedFieldsValues);
+  };
+  const handleDeleteField = (keyID: string) => {
+    const newEditedFieldsValues = [...editedFields];
+    const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
+    newEditedFieldsValues.splice(fieldIndex, 1);
+    console.log('Usunieto');
+
     setEditedFields(newEditedFieldsValues);
   };
 
   return (
     <div className="flex min-w-[80%] justify-between gap-5 p-5">
-      <FormGeneratedByUser formFields={formFields} formName={formName} />
+      <FormGeneratedByUser formFields={editedFields} formName={editedName} />
 
       <form className="inline-flex h-max max-w-[40%] bg-orange-200 p-4">
         <div>
@@ -101,7 +125,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
               }}
             />
           </label>
-          {formFields.map((field) => {
+          {editedFields.map((field) => {
             return (
               <div key={field.keyID} className="flex flex-wrap">
                 <input
@@ -185,10 +209,16 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                     </button>
                   </div>
                 )}
+                <button type="button" onClick={() => handleDeleteField(field.keyID)}>
+                  Delete FIELD
+                </button>
               </div>
             );
           })}
         </div>
+        <button type="button" onClick={() => handleAddEmptyField()}>
+          ADD Field
+        </button>
       </form>
     </div>
   );
