@@ -30,7 +30,10 @@ export const HomeInput = () => {
     <>
       <form onSubmit={onSubmit}>
         <input value={prompt} onChange={handleInputChange} />
-        <button type="submit" className="bg-lime-400 outline-dashed outline-4 outline-green-600">
+        <button
+          type="submit"
+          className="bg-unclaimedOrange outline-undaunted outline-dashed outline-4"
+        >
           {isPending ? 'Przetwarzanie...' : 'Wyślij'}
         </button>
       </form>

@@ -61,11 +61,11 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   };
 
   return (
-    <div className="flex min-w-[80%] gap-5 p-5">
+    <div className="flex min-w-[80%] justify-between gap-5 p-5">
       <FormGeneratedByUser formFields={formFields} formName={formName} />
 
-      <form>
-        <div className="flex flex-col">
+      <form className="inline-flex max-w-[40%] bg-orange-200 p-4 h-max">
+        <div>
           <label>
             FormName
             <input
@@ -78,7 +78,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
           </label>
           {formFields.map((field) => {
             return (
-              <div key={field.keyID}>
+              <div key={field.keyID} className="flex flex-wrap">
                 <input
                   type="text"
                   defaultValue={field.label}

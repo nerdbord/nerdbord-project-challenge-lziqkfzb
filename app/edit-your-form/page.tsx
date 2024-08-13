@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <>
       <Header />
-      <section className="flex min-h-screen flex-row justify-between bg-ct-blue-600 py-20">
+      <section className="bg-unispiredGreen flex min-h-screen flex-row justify-between py-20">
         <div className="mx-auto flex min-h-[20rem] max-w-4xl flex-col items-center justify-center rounded-md bg-ct-dark-100">
           <EditFormTool formFields={fields} formName={formName} />
         </div>
