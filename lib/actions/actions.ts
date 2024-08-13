@@ -1,12 +1,16 @@
+'use server';
+
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+
 import { generateObject } from 'ai';
 import { model } from '@/lib/ai_sdk/openai';
 import { z } from 'zod';
 import { nanoid } from 'nanoid';
 
-export async function POST(req: Request) {
-  const { prompt }: { prompt: string } = await req.json();
-
-  const result = await generateObject({
+export async function generateFormFromPrompt(prompt: string) {
+  'use server';
+  const { object } = await generateObject({
     model,
     temperature: 0.7,
     system: `Fill out the data for a form, based on the user's message. Make checkbox "required" only if it's really necessary`,
@@ -45,9 +49,11 @@ export async function POST(req: Request) {
     }),
   });
 
-  result.object.fields.forEach((field) => {
+  object.fields.forEach((field) => {
     field.keyID = nanoid();
   });
 
-  return result.toJsonResponse();
+  cookies().set('formJSON', JSON.stringify(object));
+
+  redirect('/edit-your-form');
 }

@@ -24,12 +24,12 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-interface GeneratedFormProps {
+interface FormGeneratedByUserProps {
   formFields: InputJSONType[];
   formName: string;
 }
 
-export const GeneratedForm = ({ formFields, formName }: GeneratedFormProps) => {
+export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUserProps) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
