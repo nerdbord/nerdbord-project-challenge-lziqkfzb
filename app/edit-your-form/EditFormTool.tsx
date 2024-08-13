@@ -13,8 +13,6 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   const [editedFields, setEditedFields] = useState<InputJSONType[]>(formFields);
   const [editedName, setEditedName] = useState(formName);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {};
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -60,11 +58,38 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     setEditedFields(newEditedFieldsValues);
   };
 
+  const handleInputOptionsChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    keyID: string,
+    index: number,
+  ) => {
+    const newEditedFieldsValues = [...editedFields];
+    const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
+    if (!newEditedFieldsValues[fieldIndex].options) newEditedFieldsValues[fieldIndex].options = [];
+
+    newEditedFieldsValues[fieldIndex].options[index] = e.target.value;
+    setEditedFields(newEditedFieldsValues);
+  };
+  const handleAddOption = (keyID: string) => {
+    const newEditedFieldsValues = [...editedFields];
+    const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
+    if (!newEditedFieldsValues[fieldIndex].options) newEditedFieldsValues[fieldIndex].options = [];
+    newEditedFieldsValues[fieldIndex].options.push('');
+    setEditedFields(newEditedFieldsValues);
+  };
+  const handleDeleteOption = (keyID: string) => {
+    const newEditedFieldsValues = [...editedFields];
+    const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
+    if (!newEditedFieldsValues[fieldIndex].options) return;
+    newEditedFieldsValues[fieldIndex].options.pop();
+    setEditedFields(newEditedFieldsValues);
+  };
+
   return (
     <div className="flex min-w-[80%] justify-between gap-5 p-5">
       <FormGeneratedByUser formFields={formFields} formName={formName} />
 
-      <form className="inline-flex max-w-[40%] bg-orange-200 p-4 h-max">
+      <form className="inline-flex h-max max-w-[40%] bg-orange-200 p-4">
         <div>
           <label>
             FormName
@@ -95,7 +120,6 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                 />
                 <select
                   value={field.type}
-                  defaultValue={field.type || 'Select'}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     handleInputTypeChange(e, field.keyID)
                   }
@@ -139,6 +163,27 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                       />
                     </label>
                   </>
+                )}
+                {(field.type === 'radio' ||
+                  field.type === 'checkbox' ||
+                  field.type === 'select') && (
+                  <div>
+                    {field.options?.map((option, index) => (
+                      <input
+                        value={option}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                          handleInputOptionsChange(e, field.keyID, index)
+                        }
+                        key={field.keyID + index}
+                      />
+                    ))}
+                    <button type="button" onClick={() => handleAddOption(field.keyID)}>
+                      Add
+                    </button>
+                    <button type="button" onClick={() => handleDeleteOption(field.keyID)}>
+                      Delete
+                    </button>
+                  </div>
                 )}
               </div>
             );

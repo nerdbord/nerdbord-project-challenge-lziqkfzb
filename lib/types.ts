@@ -16,7 +16,6 @@ export type InputTypeAttribute =
   | 'date'
   | 'email'
   | 'password'
-  | 'data'
   | 'number'
   | 'radio'
   | 'text'
@@ -33,7 +32,6 @@ export const availableInputTypeArray: InputTypeAttribute[] = [
   'date',
   'email',
   'password',
-  'data',
   'number',
   'radio',
   'text',
