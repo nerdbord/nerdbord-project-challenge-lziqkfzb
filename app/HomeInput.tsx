@@ -1,14 +1,13 @@
 'use client';
-import { useState, ChangeEvent } from 'react';
-import type { InputJSONType } from '@/lib/types';
-import { GeneratedForm } from './GeneratedForm';
+import { useState, ChangeEvent, useTransition } from 'react';
+import { generateFormFromPrompt } from '@/lib/actions/actions';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export const HomeInput = () => {
-  const [formFields, setFormFields] = useState<InputJSONType[]>([]);
-  const [formName, setFormName] = useState('');
+  const [isPending, startTransition] = useTransition();
+
   const [isLoading, setIsLoading] = useState(false);
   const [prompt, setPrompt] = useState(
     'potrzebuję zbierać danę użytkowników, imię, płeć, data urodzenia, ulubiony kolor, czy poleciłby naszą firmę, potwierdzenie o przeczytaniu regulaminu, jak nas ocenia w skalo od jeden do pięć',
@@ -22,17 +21,8 @@ export const HomeInput = () => {
     e.preventDefault();
 
     setIsLoading(true);
+    startTransition(() => generateFormFromPrompt(prompt));
 
-    const response = await fetch('/api/genre-base', {
-      method: 'POST',
-      body: JSON.stringify({
-        prompt,
-      }),
-    });
-    const json = await response.json();
-
-    setFormFields(json.fields);
-    setFormName(json.formName);
     setIsLoading(false);
   };
 
@@ -40,12 +30,13 @@ export const HomeInput = () => {
     <>
       <form onSubmit={onSubmit}>
         <input value={prompt} onChange={handleInputChange} />
-        <button type="submit" className="bg-lime-400 outline-dashed outline-4 outline-green-600">
-          Generate
+        <button
+          type="submit"
+          className="bg-unclaimedOrange outline-undaunted outline-dashed outline-4"
+        >
+          {isPending ? 'Przetwarzanie...' : 'Wyślij'}
         </button>
-        {isLoading ? 'Loading...' : JSON.stringify(formFields)}
       </form>
-      {formFields.length > 0 && <GeneratedForm formFields={formFields} formName={formName} />}
     </>
   );
 };

@@ -14,6 +14,10 @@ const config: Config = {
         'ct-dark-100': '#f5f6f7',
         'ct-blue-600': '#2363eb',
         'ct-yellow-600': '#f9d13e',
+        unispiredGreen: '#189090',
+        unclaimedOrange: '#d86000',
+        undaunted: '#f09048',
+        hat: '#301818',
       },
       fontFamily: {
         Poppins: ['Poppins, sans-serif'],

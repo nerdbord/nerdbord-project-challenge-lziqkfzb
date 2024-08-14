@@ -16,7 +16,6 @@ export type InputTypeAttribute =
   | 'date'
   | 'email'
   | 'password'
-  | 'data'
   | 'number'
   | 'radio'
   | 'text'
@@ -26,3 +25,20 @@ export type InputTypeAttribute =
   | 'month'
   | 'tel'
   | 'select';
+
+export const availableInputTypeArray: InputTypeAttribute[] = [
+  'checkbox',
+  'color',
+  'date',
+  'email',
+  'password',
+  'number',
+  'radio',
+  'text',
+  'time',
+  'url',
+  'week',
+  'month',
+  'tel',
+  'select',
+];
