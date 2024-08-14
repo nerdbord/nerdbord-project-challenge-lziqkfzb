@@ -1,9 +1,11 @@
 'use client';
 import { useState, ChangeEvent } from 'react';
+import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
+
+import { nanoid } from 'nanoid';
+
 import type { InputJSONType, InputTypeAttribute } from '@/lib/types';
 import { availableInputTypeArray } from '@/lib/types';
-import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
-import { nanoid } from 'nanoid';
 
 interface EditFormToolProps {
   formFields: InputJSONType[];
@@ -16,6 +18,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('Formularz zostanie zapisany w bazie');
   };
 
   const handleInputLabelChange = (e: ChangeEvent<HTMLInputElement>, keyID: string) => {
@@ -66,11 +69,19 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   ) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
-    if (!newEditedFieldsValues[fieldIndex].options) newEditedFieldsValues[fieldIndex].options = [];
 
-    newEditedFieldsValues[fieldIndex].options[index] = e.target.value;
-    setEditedFields(newEditedFieldsValues);
+    if (!newEditedFieldsValues[fieldIndex].options) {
+      newEditedFieldsValues[fieldIndex].options = [];
+    }
+
+    if (newEditedFieldsValues[fieldIndex].options) {
+      if (newEditedFieldsValues[fieldIndex].options.length > index) {
+        newEditedFieldsValues[fieldIndex].options[index] = e.target.value;
+        setEditedFields(newEditedFieldsValues);
+      } //TODO: error handler
+    }
   };
+
   const handleAddOption = (keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
@@ -97,15 +108,12 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
       name: 'newField',
       required: false,
     });
-    console.log('Dodano');
     setEditedFields(newEditedFieldsValues);
   };
   const handleDeleteField = (keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
     newEditedFieldsValues.splice(fieldIndex, 1);
-    console.log('Usunieto');
-
     setEditedFields(newEditedFieldsValues);
   };
 
@@ -113,7 +121,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     <div className="flex min-w-[80%] justify-between gap-5 p-5">
       <FormGeneratedByUser formFields={editedFields} formName={editedName} />
 
-      <form className="inline-flex h-max max-w-[40%] bg-orange-200 p-4">
+      <form className="inline-flex h-max max-w-[40%] bg-orange-200 p-4" onSubmit={onSubmit}>
         <div>
           <label>
             FormName
