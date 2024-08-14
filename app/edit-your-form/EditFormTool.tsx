@@ -21,6 +21,10 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     console.log('Formularz zostanie zapisany w bazie');
   };
 
+  const handleFormNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEditedName(e.target.value);
+  };
+
   const handleInputLabelChange = (e: ChangeEvent<HTMLInputElement>, keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
@@ -45,13 +49,13 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   const handleInputMinValueChange = (e: ChangeEvent<HTMLInputElement>, keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
-    newEditedFieldsValues[fieldIndex].minValue = ((e.target.value as any) - 0) as number;
+    newEditedFieldsValues[fieldIndex].minValue = Number(e.target.value as any);
     setEditedFields(newEditedFieldsValues);
   };
   const handleInputMaxValueChange = (e: ChangeEvent<HTMLInputElement>, keyID: string) => {
     const newEditedFieldsValues = [...editedFields];
     const fieldIndex = newEditedFieldsValues.findIndex((field) => field.keyID === keyID);
-    newEditedFieldsValues[fieldIndex].maxValue = ((e.target.value as any) - 0) as number;
+    newEditedFieldsValues[fieldIndex].maxValue = Number(e.target.value as any);
     setEditedFields(newEditedFieldsValues);
   };
 
@@ -125,13 +129,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
         <div>
           <label>
             FormName
-            <input
-              type="text"
-              value={editedName}
-              onChange={() => {
-                setEditedName;
-              }}
-            />
+            <input type="text" value={editedName} onChange={handleFormNameChange} />
           </label>
           {editedFields.map((field) => {
             return (
