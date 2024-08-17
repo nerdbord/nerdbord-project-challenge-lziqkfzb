@@ -8,8 +8,8 @@ export const maxDuration = 30;
 export const HomeInput = () => {
   const [isPending, startTransition] = useTransition();
 
-  const [prompt, setPrompt] = useState(
-    'potrzebuję zbierać danę użytkowników, imię, płeć, data urodzenia, ulubiony kolor, czy poleciłby naszą firmę, potwierdzenie o przeczytaniu regulaminu, jak nas ocenia w skalo od jeden do pięć',
+  const [prompt, setPrompt] = useState("Kto tobą rządzi? Papież czy Sułtan Kosmitów?"
+    // 'potrzebuję zbierać danę użytkowników, imię, płeć, data urodzenia, ulubiony kolor, czy poleciłby naszą firmę, potwierdzenie o przeczytaniu regulaminu, jak nas ocenia w skalo od jeden do pięć',
   );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -211,7 +211,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                           handleInputOptionsChange(e, field.keyID, index)
                         }
-                        key={field.keyID + index}
+                        key={`${field.keyID} + ${index}`}
                       />
                     ))}
                     <button

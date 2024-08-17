@@ -14,8 +14,6 @@ export async function POST(request: Request) {
 
     if (error) throw error;
 
-    console.log('DATA DATA DATA', data);
-
     return NextResponse.json({ success: true, data });
   } catch (error: any) {
     console.error('Błąd podczas tworzenia formularza:', error);
