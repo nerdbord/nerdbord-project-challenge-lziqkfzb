@@ -162,7 +162,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                   }
                 >
                   {availableInputTypeArray.map((type, index) => (
-                    <option key={field.keyID + index}>{type}</option>
+                    <option key={`${field.keyID}${index}`}>{type}</option>
                   ))}
                 </select>
                 {field.type === 'text' && (
@@ -211,7 +211,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                           handleInputOptionsChange(e, field.keyID, index)
                         }
-                        key={`${field.keyID} + ${index}`}
+                        key={`${field.keyID}${index}`}
                       />
                     ))}
                     <button
