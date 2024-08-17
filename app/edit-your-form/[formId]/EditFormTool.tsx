@@ -1,8 +1,9 @@
 'use client';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useTransition } from 'react';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
 
 import { nanoid } from 'nanoid';
+import { saveForm } from '@/lib/utils';
 
 import type { InputJSONType, InputTypeAttribute } from '@/lib/types';
 import { availableInputTypeArray } from '@/lib/types';
@@ -15,10 +16,13 @@ interface EditFormToolProps {
 export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   const [editedFields, setEditedFields] = useState<InputJSONType[]>(formFields);
   const [editedName, setEditedName] = useState(formName);
+  const [isPending, startTransition] = useTransition();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Formularz zostanie zapisany w bazie');
+    startTransition(async () => {
+      await saveForm({ formName: editedName, fields: editedFields });
+    });
   };
 
   const handleFormNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +129,10 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     <div className="flex min-w-[80%] justify-between gap-5 p-5">
       <FormGeneratedByUser formFields={editedFields} formName={editedName} />
 
-      <form className="inline-flex h-max max-w-[40%] bg-orange-200 p-4" onSubmit={onSubmit}>
+      <form
+        className="inline-flex h-max max-w-[40%] flex-col bg-orange-200 p-4"
+        onSubmit={onSubmit}
+      >
         <div>
           <label>
             FormName
@@ -155,7 +162,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                   }
                 >
                   {availableInputTypeArray.map((type, index) => (
-                    <option key={field.keyID + index}>{type}</option>
+                    <option key={`${field.keyID}${index}`}>{type}</option>
                   ))}
                 </select>
                 {field.type === 'text' && (
@@ -204,26 +211,49 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                           handleInputOptionsChange(e, field.keyID, index)
                         }
-                        key={field.keyID + index}
+                        key={`${field.keyID}${index}`}
                       />
                     ))}
-                    <button type="button" onClick={() => handleAddOption(field.keyID)}>
+                    <button
+                      className="rounded-lg border border-slate-700 bg-sky-200 p-1"
+                      type="button"
+                      onClick={() => handleAddOption(field.keyID)}
+                    >
                       Add
                     </button>
-                    <button type="button" onClick={() => handleDeleteOption(field.keyID)}>
+                    <button
+                      className="rounded-lg border border-slate-700 bg-sky-200 p-1"
+                      type="button"
+                      onClick={() => handleDeleteOption(field.keyID)}
+                    >
                       Delete
                     </button>
                   </div>
                 )}
-                <button type="button" onClick={() => handleDeleteField(field.keyID)}>
+                <button
+                  className="rounded-lg border border-slate-700 bg-sky-200 p-1"
+                  type="button"
+                  onClick={() => handleDeleteField(field.keyID)}
+                >
                   Delete FIELD
                 </button>
               </div>
             );
           })}
         </div>
-        <button type="button" onClick={() => handleAddEmptyField()}>
+        <button
+          className="rounded-lg border border-slate-700 bg-sky-200 p-1"
+          type="button"
+          onClick={() => handleAddEmptyField()}
+        >
           ADD Field
+        </button>
+        <button
+          className="rounded-lg border border-slate-700 bg-sky-200 p-1"
+          type="submit"
+          disabled={isPending}
+        >
+          {isPending ? 'LOADING...' : 'SUBMIT BUTTON'}
         </button>
       </form>
     </div>

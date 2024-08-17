@@ -1,5 +1,6 @@
 'use client';
 import { FormEvent } from 'react';
+import { usePathname } from 'next/navigation';
 import type { InputJSONType } from '@/lib/types';
 import {
   FormControl,
@@ -23,6 +24,7 @@ import {
   Heading,
   Button,
 } from '@chakra-ui/react';
+import { saveForm } from '@/lib/utils';
 
 interface FormGeneratedByUserProps {
   formFields: InputJSONType[];
@@ -30,19 +32,27 @@ interface FormGeneratedByUserProps {
 }
 
 export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUserProps) => {
+  const pathname = usePathname();
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    console.log(pathname);
 
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
+    if (pathname.startsWith('/edit-your-form/')) {
+      console.log('formularz wypełniony poprawnie');
+    } else {
+      formData.forEach((value, key) => {
+        //TODO:
+        console.log(key, value);
+      });
+    }
   };
 
   return (
     <ChakraProvider>
       <Card align="center" padding="20px">
-        <VStack spacing={8}>
+        <VStack spacing={8} justifyContent={'center'} alignItems={'center'}>
           <CardHeader>
             <Heading size="md">{formName}</Heading>
           </CardHeader>
@@ -63,10 +73,10 @@ export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUse
                       <FormControl isRequired={input.required} key={input.keyID}>
                         <FormLabel>{input.label}</FormLabel>
                         <CheckboxGroup>
-                          <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                          <Stack spacing={[1, 5]} direction={['column', 'row']} flexWrap={'wrap'}>
                             {input.options.map((option, index) => (
                               <Checkbox
-                                key={input.keyID + option}
+                                key={input.keyID + index}
                                 name={`${input.name}.${option}`}
                                 value={option}
                               >
@@ -182,9 +192,9 @@ export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUse
                         <FormControl isRequired={input.required} key={input.keyID}>
                           <FormLabel>{input.label}</FormLabel>
                           <RadioGroup name={input.name}>
-                            <Stack direction="row">
+                            <Stack direction="row" flexWrap={'wrap'}>
                               {input?.options.map((option, index) => (
-                                <Radio key={input.keyID + option} value={option}>
+                                <Radio key={input.keyID + index} value={option.toString()}>
                                   {option}
                                 </Radio>
                               ))}
