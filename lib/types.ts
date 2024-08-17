@@ -2,9 +2,9 @@ export type InputJSONType = {
   name: string;
   label: string;
   placeholder?: string;
-  required: boolean;
+  required?: boolean | undefined;
   type: InputTypeAttribute;
-  options?: string[];
+  options?: (string | number)[];
   minValue?: number;
   maxValue?: number;
   keyID: string;

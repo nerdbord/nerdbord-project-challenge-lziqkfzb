@@ -184,7 +184,7 @@ export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUse
                           <RadioGroup name={input.name}>
                             <Stack direction="row">
                               {input?.options.map((option, index) => (
-                                <Radio key={input.keyID + option} value={option}>
+                                <Radio key={input.keyID + option} value={option.toString()}>
                                   {option}
                                 </Radio>
                               ))}

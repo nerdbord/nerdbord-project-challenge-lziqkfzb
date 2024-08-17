@@ -1,15 +1,27 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-
 import { generateObject } from 'ai';
 import { model } from '@/lib/ai_sdk/openai';
 import { z } from 'zod';
 import { nanoid } from 'nanoid';
+import { InputJSONType } from '../types';
+import { headers } from 'next/headers';
+import createServerClient from '../supabase/server';
 
 export async function generateFormFromPrompt(prompt: string) {
   'use server';
+  const origin = headers().get('origin');
+  const supabase = await createServerClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error('Nie jesteś zalogowany');
+  }
+
   const { object } = await generateObject({
     model,
     temperature: 0.7,
@@ -49,11 +61,21 @@ export async function generateFormFromPrompt(prompt: string) {
     }),
   });
 
-  object.fields.forEach((field) => {
+  const { fields, formName } = object as { fields: InputJSONType[]; formName: string };
+
+  fields.forEach((field) => {
     field.keyID = nanoid();
   });
 
-  cookies().set('formJSON', JSON.stringify(object));
+  const res = await fetch(`${origin}/api/save-form`, {
+    method: 'POST',
+    body: JSON.stringify({
+      formName,
+      fields,
+    }),
+  });
 
-  redirect('/edit-your-form');
+  const { data } = await res.json();
+
+  redirect(`/edit-your-form/${data[0].id}`);
 }
