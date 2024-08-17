@@ -14,7 +14,6 @@ export default async function Page({ params }: { params: { formId: string } }) {
     }
     throw error;
   }
-  console.log(data);
 
   if (!data) {
     return <h2>Halo, coś się zepsuło i mnie nie widać</h2>; //TODO:

@@ -37,14 +37,12 @@ export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUse
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    console.log(pathname);
 
     if (pathname.startsWith('/edit-your-form/')) {
-      console.log('formularz wypełniony poprawnie');
+      console.log('formularz wypełniony poprawnie'); //TODO:
     } else {
       formData.forEach((value, key) => {
-        //TODO:
-        console.log(key, value);
+        console.log(key, value); //TODO:
       });
     }
   };
