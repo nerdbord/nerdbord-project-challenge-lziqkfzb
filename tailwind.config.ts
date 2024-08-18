@@ -18,6 +18,7 @@ const config: Config = {
         unclaimedOrange: '#d86000',
         undaunted: '#f09048',
         hat: '#301818',
+        brand: '#7F56D9',
       },
       fontFamily: {
         Poppins: ['Poppins, sans-serif'],
