@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-import { rowdies, permanentMarker } from './fonts';
+import { rowdies, permanentMarker, inter } from './fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,10 +16,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${rowdies.className} ${rowdies.variable} ${permanentMarker.variable} font-light`}
+        className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-500 font-light`}
       >
-        {children}
-        <Toaster />
+        <div className="relative mx-auto flex min-h-screen max-w-[375px] flex-col justify-between bg-white px-[16px] py-[34px]">
+          {children}
+          <Toaster />
+        </div>
       </body>
     </html>
   );
