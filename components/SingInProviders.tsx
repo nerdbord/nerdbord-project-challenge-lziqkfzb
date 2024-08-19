@@ -3,21 +3,30 @@ import Image from 'next/image';
 import useSupabaseClient from '@/lib/supabase/client';
 import { Button } from './Button';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export const SingInProviders = () => {
+  const [clientDomain, setClientDomain] = useState<string>('');
+  useEffect(() => {
+    setClientDomain(window.location.origin);
+  }, []);
+
   const supabase = useSupabaseClient();
 
   const loginWithGitHub = () => {
     supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${clientDomain}/auth/callback`,
       },
     });
   };
 
   return (
     <div className="flex flex-col gap-[12px]">
+      <p>
+        Domena z klienta: <strong>{clientDomain}</strong>
+      </p>
       <Button onClick={loginWithGitHub} variant="white">
         <div className="flex gap-[12px]">
           <Image className="pr-2" src="/images/github.svg" alt="" width={24} height={24} /> Sign in
