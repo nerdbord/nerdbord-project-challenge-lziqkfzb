@@ -1,18 +1,31 @@
 import { Header } from '@/components/Header';
 import { LoginForm } from './login-form';
+import { ArrowLeft } from '@/components/icons/ArrowLeft';
+import Link from 'next/link';
+import { OrBar } from '@/components/OrBar';
+import { SingInProviders } from '@/components/SingInProviders';
 
 export default async function LoginPage() {
   return (
     <>
-      <Header />
-
-      <section className="min-h-screen bg-ct-blue-600 pt-20">
-        <div className="container mx-auto flex h-full items-center justify-center px-6 py-12">
-          <div className="bg-white px-8 py-10 md:w-8/12 lg:w-5/12">
-            <LoginForm />
+      <div>
+        <Header>
+          <Link href="/">
+            <ArrowLeft />
+          </Link>
+        </Header>
+        <section className="flex flex-col gap-[16px]">
+          <div className="flex flex-col gap-[8px]">
+            <h2 className="text-center text-lg font-bold leading-7 text-black/80">Welcome back!</h2>
+            <h3 className="text-center text-base font-normal leading-normal text-black/40">
+              Enter your details to sign in
+            </h3>
           </div>
-        </div>
-      </section>
+          <LoginForm />
+        </section>
+      </div>
+      <OrBar />
+      <SingInProviders />
     </>
   );
 }

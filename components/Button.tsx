@@ -1,11 +1,14 @@
+'use client';
+
 import { ReactNode } from 'react';
 import clsx from 'clsx';
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
   variant?: 'filled' | 'white';
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export const Button = ({
@@ -13,6 +16,7 @@ export const Button = ({
   children,
   variant = 'filled',
   disabled = false,
+  type = 'button',
 }: ButtonProps) => {
   return (
     <button
@@ -25,10 +29,12 @@ export const Button = ({
         { 'border-[#D0D5DD] bg-white text-gray-700': variant === 'white' },
       )}
       disabled={disabled}
+      type={type}
+      onClick={onClick}
     >
-      <p
+      <div
         className={clsx(
-          "text-base font-semibold leading-normal",
+          'text-base font-semibold leading-normal',
           {
             'text-white': variant === 'filled',
           },
@@ -36,7 +42,7 @@ export const Button = ({
         )}
       >
         {children}
-      </p>
+      </div>
     </button>
   );
 };

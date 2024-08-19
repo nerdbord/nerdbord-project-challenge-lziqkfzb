@@ -5,6 +5,7 @@ import { LinkButton } from '@/components/LinkButton';
 import { Button } from '@/components/Button';
 import getUserSession from '@/lib/getUserSession';
 import createSupabaseServerClient from '@/lib/supabase/server';
+import { OrBar } from '@/components/OrBar';
 
 export default async function Home() {
   const { data } = await getUserSession();
@@ -31,29 +32,27 @@ export default async function Home() {
           <Image src="/images/formImage.png" alt="Sample Form Image" width={343} height={232} />
         </section>
       </div>
-      <nav className="flex w-full flex-col">
+      <nav className="flex w-full flex-col gap-[12px]">
         {!data.session ? (
           <LinkButton variant="filled" href="/login">
             Sign in
           </LinkButton>
         ) : (
           <LinkButton variant="filled" href="/profile">
-            Sign in
+            Profile
           </LinkButton>
         )}
-        <div className="inline-flex h-6 items-center justify-center gap-4 px-4">
-          <div className="relative h-px bg-[#d0d5dd] font-normal" />
-          <div className="text-center text-sm font-normal leading-tight text-black/40">or</div>
-          <div className="relative h-px bg-[#d0d5dd]" />
-        </div>
+        <OrBar />
         {!data.session ? (
           <LinkButton variant="white" href="/register">
             Create an Account
           </LinkButton>
         ) : (
-          <Button variant="white" onClick={logoutAction}>
-            Create an Account
-          </Button>
+          <form action={logoutAction} className="flex w-full">
+            <Button variant="white" type="submit">
+              Logout
+            </Button>
+          </form>
         )}
       </nav>
     </>
