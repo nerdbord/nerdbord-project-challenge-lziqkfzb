@@ -23,10 +23,7 @@ export const SingInProviders = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[12px]">
-      <p>
-        Domena z klienta: <strong>{clientDomain}</strong>
-      </p>
+    <div className="mt-[12px] flex flex-col gap-[32px]">
       <Button onClick={loginWithGitHub} variant="white">
         <div className="flex gap-[12px]">
           <Image className="pr-2" src="/images/github.svg" alt="" width={24} height={24} /> Sign in

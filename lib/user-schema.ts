@@ -1,10 +1,7 @@
-import { object, string, TypeOf } from 'zod';
+import { boolean, object, string, TypeOf } from 'zod';
 
 export const createUserSchema = object({
-  name: string({ required_error: 'Name is required' }).min(
-    1,
-    'Name is required'
-  ),
+  name: string({ required_error: 'Name is required' }).min(1, 'Name is required'),
   email: string({ required_error: 'Email is required' })
     .min(1, 'Email is required')
     .email('Invalid email'),
@@ -16,6 +13,9 @@ export const createUserSchema = object({
   passwordConfirm: string({
     required_error: 'Please confirm your password',
   }).min(1, 'Please confirm your password'),
+  termsConfirm: boolean().refine((val) => val === true, {
+    message: 'Please confirm Terms and Conditions',
+  }),
 }).refine((data) => data.password === data.passwordConfirm, {
   path: ['passwordConfirm'],
   message: 'Passwords do not match',
@@ -25,10 +25,7 @@ export const loginUserSchema = object({
   email: string({ required_error: 'Email is required' })
     .min(1, 'Email is required')
     .email('Invalid email or password'),
-  password: string({ required_error: 'Password is required' }).min(
-    1,
-    'Password is required'
-  ),
+  password: string({ required_error: 'Password is required' }).min(1, 'Password is required'),
 });
 
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
