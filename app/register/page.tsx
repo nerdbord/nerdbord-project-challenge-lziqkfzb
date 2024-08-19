@@ -8,7 +8,7 @@ import { SingInProviders } from '@/components/SingInProviders';
 export default async function LoginPage() {
   return (
     <>
-      <div>
+      <div className="px-[16px]">
         <Header>
           <Link href="/">
             <ArrowLeft />
@@ -24,7 +24,6 @@ export default async function LoginPage() {
             </h3>
           </div>
           <RegisterForm />
-         
         </section>
       </div>
       <OrBar />

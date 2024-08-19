@@ -18,7 +18,7 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-500 font-light`}
       >
-        <div className="relative mx-auto flex min-h-screen max-w-[375px] flex-col justify-between bg-white px-[16px] py-[34px]">
+        <div className="Breakpoint prefix Minimum width CSS relative mx-auto flex min-h-screen flex-col justify-between bg-white py-[34px] sm:max-w-[450px]">
           {children}
           <Toaster />
         </div>

@@ -1,5 +1,4 @@
 import { Header } from '@/components/Header';
-import { cookies } from 'next/headers';
 import { EditFormTool } from './EditFormTool';
 import createSupabaseServerClient from '@/lib/supabase/server';
 

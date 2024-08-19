@@ -18,7 +18,7 @@ export default async function Home() {
 
   return (
     <>
-      <div>
+      <div className="px-[16px]">
         <Header>
           <TextLogo />
         </Header>
@@ -32,7 +32,7 @@ export default async function Home() {
           <Image src="/images/formImage.png" alt="Sample Form Image" width={343} height={232} />
         </section>
       </div>
-      <nav className="flex w-full flex-col gap-[12px]">
+      <nav className="flex w-full flex-col gap-[12px] px-[16px]">
         {!data.session ? (
           <LinkButton variant="filled" href="/login">
             Sign in
