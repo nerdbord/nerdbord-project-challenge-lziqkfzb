@@ -28,28 +28,24 @@ export default async function Page({ params }: { params: { formId: string } }) {
     return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
   }
 
-  console.log(databaseRes.data);
-
-  //   console.log(address_to_send, 'test');
-
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white px-[16px]">
+      <div className="sticky top-0 z-50 bg-white px-[16px] pb-[74px]">
         <Header>
           <Link href="/">
             <TextLogo />
           </Link>
         </Header>
-      </div>
-      <div className="flex flex-col gap-[16px] px-[16px]">
-        <div className="text-lg font-bold leading-7 text-black/80">Your forms</div>
-        <ul className="flex flex-col gap-[12px]">
-          {databaseRes.data.map((form) => (
-            <FormCard form={form} host={host} key={form.id} />
-          ))}
-        </ul>
-      </div>
 
+        <div className="flex flex-col gap-[16px] px-[16px]">
+          <div className="text-lg font-bold leading-7 text-black/80">Your forms</div>
+          <ul className="flex flex-col gap-[12px]">
+            {databaseRes.data.map((form) => (
+              <FormCard formId={form.id} name={form.name} host={host} key={form.id} />
+            ))}
+          </ul>
+        </div>
+      </div>
       <div>
         <nav className="b-white fixed bottom-0 w-full border-t border-[#cfd4dc] bg-white pb-[34px] sm:max-w-[450px]">
           <div className="px-[16px] py-[12px]">
