@@ -5,23 +5,21 @@ export async function POST(request: Request) {
   const supabase = await createSupabaseServerClient();
 
   try {
-    const {
-      formName,
-      fields,
-      addressToSend,
-    }: { formName: string; fields: string; addressToSend: string } = await request.json();
+    console.log('wysłano usuniecie');
 
-    const { data, error } = await supabase.rpc('create_form', {
-      p_name: formName,
-      p_body: fields,
-      p_address_to_send: addressToSend,
+    const { formId }: { formId: string } = await request.json();
+    console.log(formId);
+
+    const { data, error } = await supabase.rpc('delete_form_by_id', {
+      form_id: formId,
     });
 
     if (error) throw error;
+    console.log(data, error);
 
     return NextResponse.json({ success: true, data });
   } catch (error: any) {
-    console.error('Błąd podczas tworzenia formularza:', error);
+    console.error('Błąd podczas usuwania formularza:', error);
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }

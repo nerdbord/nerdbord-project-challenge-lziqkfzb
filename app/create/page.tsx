@@ -1,45 +1,31 @@
 import { Header } from '@/components/Header';
-import { EditFormTool } from './EditFormTool';
-import createSupabaseServerClient from '@/lib/supabase/server';
-import { ArrowLeft } from '@/components/icons/ArrowLeft';
+import { PromptInput } from '@/app/create/PromptInput';
+import { Logo } from '@/components/icons/Logo';
 import Link from 'next/link';
 import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
 import { User } from '@/components/icons/User';
 
-
-export default async function Page({ params }: { params: { formId: string } }) {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.from('forms').select('*').eq('id', params.formId).single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      // Nie znaleziono rekordu
-      return null; //TODO:
-    }
-    throw error;
-  }
-
-  if (!data) {
-    return <h2>Halo, coś się zepsuło i mnie nie widać</h2>; //TODO:
-  }
-
-  const { body, name } = data;
-
+export default async function Page() {
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white px-[16px]">
+      <div className="px-[16px]">
         <Header>
-          <Link href="/">
-            <ArrowLeft />
-          </Link>
-          Form preview
+          <Logo />
         </Header>
+        <section className="flex flex-col gap-[16px]">
+          <div className="flex flex-col gap-[8px]">
+            <h2 className="text-center text-lg font-bold leading-7 text-black/80">
+              AI form builder
+            </h2>
+            <h3 className="text-center text-base font-normal leading-normal text-black/40">
+              Use chat to create you first form
+            </h3>
+          </div>
+        </section>
       </div>
-
-      <EditFormTool formFields={body} formName={name} />
-
-      <nav className="b-white fixed bottom-0 w-full bg-white pb-[34px] sm:max-w-[450px]">
+      <PromptInput />
+      <nav>
         <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
           <li>
             <Link href="/my-forms" className="flex flex-col items-center">

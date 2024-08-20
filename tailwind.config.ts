@@ -1,4 +1,6 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+import tailwindcssSignals from 'tailwindcss-signals';
 
 const config: Config = {
   content: [
@@ -18,6 +20,7 @@ const config: Config = {
         unclaimedOrange: '#d86000',
         undaunted: '#f09048',
         hat: '#301818',
+        brand: '#7F56D9',
       },
       fontFamily: {
         Poppins: ['Poppins, sans-serif'],
@@ -33,6 +36,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('children', '&>*');
+    }),
+    tailwindcssSignals,
+  ],
 };
 export default config;
