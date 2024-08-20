@@ -663,7 +663,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
           </Card>
         </div>
       </ChakraProvider>
-      <div className="fixed bottom-[94px] flex w-full border-t border-[#cccccc] bg-white px-[16px] py-[12px]">
+      <div className="fixed bottom-[94px] flex w-full border-t border-[#cccccc] bg-white px-[16px] py-[12px] sm:max-w-[450px]">
         <BrandButton onClick={handleSaveForm}>Submit</BrandButton>
       </div>
       {isEditNameModalOpen &&

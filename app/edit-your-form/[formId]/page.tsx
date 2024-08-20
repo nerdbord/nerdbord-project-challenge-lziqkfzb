@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
 
       <EditFormTool formFields={body} formName={name} />
 
-      <nav className="b-white fixed bottom-0 w-full bg-white pb-[34px]">
+      <nav className="b-white fixed bottom-0 w-full bg-white pb-[34px] sm:max-w-[450px]">
         <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
           <li>
             <Link href="/my-forms" className="flex flex-col items-center">
