@@ -49,6 +49,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   const [isEditNameModalOpen, setIsEditNameModalOpen] = useState(false);
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
   const [nowEditedField, setNowEditedField] = useState<InputJSONType | null>(null);
+  const [addressToSend, setAddressToSend] = useState('');
 
   useEffect(() => {
     setModalRoot(document.getElementById('modalRoot'));
@@ -60,7 +61,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
   };
   const handleSaveForm = () => {
     startTransition(async () => {
-      await saveForm({ formName: editedName, fields: editedFields });
+      await saveForm({ formName: editedName, fields: editedFields, addressToSend });
     });
   };
 
@@ -664,7 +665,18 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
         </div>
       </ChakraProvider>
       <div className="fixed bottom-[94px] flex w-full border-t border-[#cccccc] bg-white px-[16px] py-[12px] sm:max-w-[450px]">
-        <BrandButton onClick={handleSaveForm}>{isPending ? 'Procesing...' : 'Submit'}</BrandButton>
+        <form onSubmit={handleSaveForm} className="flex w-full flex-col gap-[12px]">
+          <InputField
+            label="Where should we send the results?"
+            name="addressToSend"
+            value={addressToSend}
+            onChange={(e) => setAddressToSend(e.currentTarget.value)}
+            required={true}
+          />
+          <BrandButton disabled={!addressToSend} type="submit">
+            {isPending ? 'Procesing...' : 'Submit'}
+          </BrandButton>
+        </form>
       </div>
       {isEditNameModalOpen &&
         modalRoot &&

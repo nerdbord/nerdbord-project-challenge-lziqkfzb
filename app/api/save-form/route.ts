@@ -5,11 +5,16 @@ export async function POST(request: Request) {
   const supabase = await createSupabaseServerClient();
 
   try {
-    const { formName, fields }: { formName: string; fields: string } = await request.json();
+    const {
+      formName,
+      fields,
+      addressToSend,
+    }: { formName: string; fields: string; addressToSend: string } = await request.json();
 
     const { data, error } = await supabase.rpc('create_form', {
       p_name: formName,
       p_body: fields,
+      p_address_to_send: addressToSend,
     });
 
     if (error) throw error;

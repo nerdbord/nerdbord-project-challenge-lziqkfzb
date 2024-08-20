@@ -16,6 +16,7 @@ interface InputFieldProps {
     | 'tel';
   value?: string | number;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
 export const InputField = ({
@@ -25,6 +26,7 @@ export const InputField = ({
   type = 'text',
   value,
   onChange,
+  required,
 }: InputFieldProps) => {
   return (
     <>
@@ -41,6 +43,7 @@ export const InputField = ({
         type={type}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </>
   );

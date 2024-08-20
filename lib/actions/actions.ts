@@ -72,6 +72,7 @@ export async function generateFormFromPrompt(prompt: string) {
     body: JSON.stringify({
       formName,
       fields,
+      addressToSend: '',
     }),
   });
 
