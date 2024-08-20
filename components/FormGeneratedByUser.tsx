@@ -24,14 +24,18 @@ import {
   Heading,
   Button,
 } from '@chakra-ui/react';
-import { saveForm } from '@/lib/utils';
 
 interface FormGeneratedByUserProps {
   formFields: InputJSONType[];
   formName: string;
+  isEditMode?: boolean;
 }
 
-export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUserProps) => {
+export const FormGeneratedByUser = ({
+  formFields,
+  formName,
+  isEditMode = false,
+}: FormGeneratedByUserProps) => {
   const pathname = usePathname();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -129,7 +133,7 @@ export const FormGeneratedByUser = ({ formFields, formName }: FormGeneratedByUse
                   case 'text':
                     return (
                       <FormControl isRequired={input.required} key={input.keyID}>
-                        <FormLabel>{input.label}</FormLabel>
+                        <FormLabel className="hover:bg-brand">{input.label}</FormLabel>
                         <Input type="text" name={input.name} placeholder={input.placeholder} />
                       </FormControl>
                     );

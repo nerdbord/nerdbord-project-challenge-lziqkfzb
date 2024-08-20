@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 interface InputFieldProps {
   placeholder?: string;
   name: string;
@@ -13,9 +14,18 @@ interface InputFieldProps {
     | 'week'
     | 'month'
     | 'tel';
+  value?: string | number;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputField = ({ placeholder, name, label, type = 'text' }: InputFieldProps) => {
+export const InputField = ({
+  placeholder,
+  name,
+  label,
+  type = 'text',
+  value,
+  onChange,
+}: InputFieldProps) => {
   return (
     <>
       {label && (
@@ -29,6 +39,8 @@ export const InputField = ({ placeholder, name, label, type = 'text' }: InputFie
         name={name}
         id={name}
         type={type}
+        value={value}
+        onChange={onChange}
       />
     </>
   );

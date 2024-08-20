@@ -3,10 +3,7 @@ import { useState, ChangeEvent, useTransition } from 'react';
 import { generateFormFromPrompt } from '@/lib/actions/actions';
 import { Send } from '@/components/icons/Send';
 import { MoreHorizontal } from '@/components/icons/MoreHorizontal';
-import Link from 'next/link';
-import { Form } from '@/components/icons/Form';
-import { Tool } from '@/components/icons/Tool';
-import { User } from '@/components/icons/User';
+
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
@@ -81,34 +78,6 @@ Let them rate on a scale of 1-5`);
           </button>
         </form>
       </div>
-      <nav>
-        <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
-          <li>
-            <Link href="/my-forms" className="flex flex-col items-center">
-              <Form isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-tight text-black/60">
-                Forms
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create" className="flex flex-col items-center">
-              <Tool />
-              <div className="text-center text-xs font-bold leading-[18px] text-black/90">
-                Form builder
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/profile" className="flex flex-col items-center">
-              <User isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-[18px] text-black/60">
-                Profile
-              </div>
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 };

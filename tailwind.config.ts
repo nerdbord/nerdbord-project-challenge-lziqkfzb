@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
+import tailwindcssSignals from 'tailwindcss-signals';
 
 const config: Config = {
   content: [
@@ -39,6 +40,7 @@ const config: Config = {
     plugin(function ({ addVariant }) {
       addVariant('children', '&>*');
     }),
+    tailwindcssSignals,
   ],
 };
 export default config;
