@@ -1,7 +1,8 @@
 import { Header } from '@/components/Header';
 import getUserSession from '@/lib/getUserSession';
 import { redirect } from 'next/navigation';
-
+import createSupabaseServerClient from '@/lib/supabase/server';
+import { Button } from '@/components/Button';
 export default async function ProfilePage() {
   const {
     data: { session },
@@ -10,6 +11,12 @@ export default async function ProfilePage() {
   if (!session) {
     return redirect('/login');
   }
+
+  const logoutAction = async () => {
+    'use server';
+    const supabase = await createSupabaseServerClient();
+    await supabase.auth.signOut();
+  };
 
   const user = session.user;
 
@@ -28,7 +35,12 @@ export default async function ProfilePage() {
               <p className="mb-3">Created At: {user.created_at}</p>
             </div>
           </div>
-        </div>
+        </div>{' '}
+        <form action={logoutAction} className="mt-7 flex w-full">
+          <Button variant="white" type="submit">
+            Logout
+          </Button>
+        </form>
       </section>
     </>
   );
