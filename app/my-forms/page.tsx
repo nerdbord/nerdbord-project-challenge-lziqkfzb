@@ -8,25 +8,26 @@ import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
 import { User } from '@/components/icons/User';
 import { FormCard } from './FormCard';
+import { UserButton } from '@clerk/nextjs';
 
 export default async function Page({ params }: { params: { formId: string } }) {
-  const headersList = headers();
-  const host = headersList.get('host') as string;
-  const supabase = await createSupabaseServerClient();
-  const { data } = await supabase.auth.getUser();
+  // const headersList = headers();
+  // const host = headersList.get('host') as string;
+  // const supabase = await createSupabaseServerClient();
+  // const { data } = await supabase.auth.getUser();
 
-  if (!data.user) {
-    return <div> {'WRÓĆ JAK SIĘ PODSZKOLISZ, LUB ZAłożysz KONTO ;)'}</div>;
-  }
+  // if (!data.user) {
+  //   return <div> {'WRÓĆ JAK SIĘ PODSZKOLISZ, LUB ZAłożysz KONTO ;)'}</div>;
+  // }
 
-  const userID = data.user.id;
-  console.log(userID);
+  // const userID = data.user.id;
+  // console.log(userID);
 
-  const databaseRes = await supabase.from('forms').select('*').eq('created_by', userID);
+  // const databaseRes = await supabase.from('forms').select('*').eq('created_by', userID);
 
-  if (!databaseRes.data) {
-    return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
-  }
+  // if (!databaseRes.data) {
+  //   return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
+  // }
 
   return (
     <>
@@ -39,11 +40,11 @@ export default async function Page({ params }: { params: { formId: string } }) {
 
         <div className="flex flex-col gap-[16px] px-[16px]">
           <div className="text-lg font-bold leading-7 text-black/80">Your forms</div>
-          <ul className="flex flex-col gap-[12px]">
+          {/* <ul className="flex flex-col gap-[12px]">
             {databaseRes.data.map((form) => (
               <FormCard formId={form.id} name={form.name} host={host} key={form.id} />
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
       <div>
@@ -74,6 +75,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
                 <div className="text-center text-xs font-medium leading-[18px] text-black/60">
                   Profile
                 </div>
+                <UserButton afterSwitchSessionUrl="/" />
               </Link>
             </li>
           </ul>

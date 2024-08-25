@@ -1,7 +1,14 @@
 import createSupabaseServerClient from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(request: Request) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: 'Error: No signed in user' }, { status: 401 });
+  }
+
   const supabase = await createSupabaseServerClient();
 
   try {

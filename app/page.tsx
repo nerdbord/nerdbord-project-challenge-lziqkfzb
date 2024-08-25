@@ -19,13 +19,12 @@ export default async function Home() {
   //   const supabase = await createSupabaseServerClient();
   //   await supabase.auth.signOut();
   // };
-
-  // if (data.session) {
-  //   redirect('/my-forms');
-  // }
-
   const { userId } = auth();
   console.log('user id:', userId);
+
+  if (userId) {
+    redirect('/my-forms');
+  }
 
   return (
     <>
@@ -40,43 +39,30 @@ export default async function Home() {
               Subheader
             </h3>
           </div>
-          <Image src="/images/formImage.png" alt="Sample Form Image" width={343} height={232} />
+          <div className="flex justify-center">
+            <Image src="/images/formImage.png" alt="Sample Form Image" width={343} height={232} />
+          </div>
         </section>
       </div>
-      <div>
+
+      <nav className="flex w-full flex-col gap-[12px] px-[16px]">
         {userId ? (
           <div className="h-[35px] w-[35px] rounded-full border-2">
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSwitchSessionUrl="/" />
           </div>
         ) : (
-          <Link href="/sign-in" className="rounded-lg border-2 px-4 py-2 font-bold">
-            Log In
-          </Link>
+          <></>
         )}
-      </div>
-      {/* <nav className="flex w-full flex-col gap-[12px] px-[16px]">
-        {!data.session ? (
-          <LinkButton variant="filled" href="/login">
+        <>
+          <LinkButton variant="filled" href="/sign-in">
             Sign in
           </LinkButton>
-        ) : (
-          <LinkButton variant="filled" href="/profile">
-            Profile
-          </LinkButton>
-        )}
-        <OrBar />
-        {!data.session ? (
-          <LinkButton variant="white" href="/register">
+          <OrBar />
+          <LinkButton variant="white" href="/sign-up">
             Create an Account
           </LinkButton>
-        ) : (
-          <form action={logoutAction} className="flex w-full">
-            <Button variant="white" type="submit">
-              Logout
-            </Button>
-          </form>
-        )}
-      </nav> */}
+        </>
+      </nav>
     </>
   );
 }
