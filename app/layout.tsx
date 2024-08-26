@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import { rowdies, permanentMarker, inter } from './fonts';
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,14 +20,8 @@ export default async function RootLayout({
         <body
           className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-500 font-light`}
         >
-          {/* <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn> */}
           <div
-            className="Breakpoint prefix Minimum width CSS relative mx-auto flex min-h-screen flex-col justify-between bg-white py-[34px] sm:max-w-[450px]"
+            className="relative mx-auto flex min-h-screen flex-col justify-between bg-white py-[34px] sm:max-w-[450px]"
             id="modalRoot"
           >
             {children}

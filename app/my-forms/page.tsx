@@ -8,7 +8,7 @@ import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
 import { User } from '@/components/icons/User';
 import { FormCard } from './FormCard';
-import { UserButton } from '@clerk/nextjs';
+import { UserButton, SignOutButton } from '@clerk/nextjs';
 
 export default async function Page({ params }: { params: { formId: string } }) {
   // const headersList = headers();
@@ -71,10 +71,14 @@ export default async function Page({ params }: { params: { formId: string } }) {
             </li>
             <li>
               <Link href="/profile" className="flex flex-col items-center">
-                <User isGrayed={true} />
-                <div className="text-center text-xs font-medium leading-[18px] text-black/60">
-                  Profile
-                </div>
+                <SignOutButton>
+                  <div>
+                    <User isGrayed={true} />
+                    <div className="text-center text-xs font-medium leading-[18px] text-black/60">
+                      Profile
+                    </div>
+                  </div>
+                </SignOutButton>
                 <UserButton afterSwitchSessionUrl="/" />
               </Link>
             </li>

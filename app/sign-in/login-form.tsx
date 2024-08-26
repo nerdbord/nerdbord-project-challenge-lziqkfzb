@@ -4,12 +4,16 @@ import { LoginUserInput, loginUserSchema } from '@/lib/user-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { signInWithEmailAndPassword } from '@/lib/actions/actions';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/Button';
+import { useSignIn } from '@clerk/nextjs';
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { isLoaded, signIn, setActive } = useSignIn();
+
   const router = useRouter();
   const [error, setError] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -25,29 +29,39 @@ export const LoginForm = () => {
     formState: { errors },
   } = methods;
 
-  const onSubmitHandler: SubmitHandler<LoginUserInput> = async (values) => {
-    startTransition(async () => {
-      const result = await signInWithEmailAndPassword(values);
+  if (!isLoaded) {
+    // handle loading state
+    return null;
+  }
 
-      console.log(JSON.parse(result));
-
-      const { error } = JSON.parse(result);
-      if (error?.__isAuthError) {
-        setError(error.name);
-        toast.error(error.name);
-        console.log('Error message', error);
+  async function submit() {
+    if (!signIn) {
+      return null;
+    }
+    await signIn
+      .create({
+        identifier: email,
+        password,
+      })
+      .then((result) => {
+        if (result.status === 'complete') {
+          console.log(result);
+          setActive({ session: result.createdSessionId });
+          router.push('/');
+        } else {
+          console.log(result);
+        }
+      })
+      .catch((err) => {
+        console.error('error', err.errors[0].longMessage);
+        setError(err.errors[0].longMessage);
+        toast.error(err.errors[0].longMessage);
         reset({ password: '' });
-        return;
-      }
-
-      setError('');
-      toast.success('successfully logged in');
-      router.push('/');
-    });
-  };
+      });
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="flex flex-col gap-[16px] py-[24px]">
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-[16px] py-[24px]">
       {error && <p className="mb-6 rounded bg-red-300 py-4 text-center">{error}</p>}
       <div>
         <label className="mb-[6px] text-sm font-medium leading-tight text-black" htmlFor="email">
@@ -59,6 +73,8 @@ export const LoginForm = () => {
           placeholder="Enter your email"
           id="email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         {errors['email'] && (
           <span className="block pt-1 text-xs text-red-500">
@@ -76,6 +92,8 @@ export const LoginForm = () => {
           placeholder="Enter your password"
           id="password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         {errors['password'] && (
           <span className="block pt-1 text-xs text-red-500">
