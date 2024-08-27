@@ -1,35 +1,34 @@
 import { Header } from '@/components/Header';
-import { RegisterForm } from '../register-form';
 import { ArrowLeft } from '@/components/icons/ArrowLeft';
 import Link from 'next/link';
-import { OrBar } from '@/components/OrBar';
-import { SingInProviders } from '@/components/SingInProviders';
 import { SignUp } from '@clerk/nextjs';
 
 export default async function LoginPage() {
   return (
     <>
-      <SignUp />
-      {/* <div className="px-[16px]">
+      <div className="z px-[16px]">
         <Header>
           <Link href="/">
             <ArrowLeft />
           </Link>
         </Header>
-        <section className="flex flex-col gap-[16px]">
-          <div className="flex flex-col gap-[8px]">
-            <h2 className="text-center text-lg font-bold leading-7 text-black/80">
-              Create an account
-            </h2>
-            <h3 className="text-center text-base font-normal leading-normal text-black/40">
-              Sign up with email to create you first form
-            </h3>
-          </div>
-          <RegisterForm />
-        </section>
       </div>
-      <OrBar />
-      <SingInProviders /> */}
+      <SignUp
+        appearance={{
+          variables: { colorPrimary: '#7F56D9', fontSize: '1rem', spacingUnit: '1.3rem' },
+          elements: {
+            rootBox: 'w-full',
+            cardBox: 'border-0 shadow-none w-full  max-w-[100vw]  flex flex-col justify-between',
+            main: 'flex flex-col-reverse',
+            footer: 'bg-none  sm:max-w-[450px] fixed bottom-0 left-0 right-0 bg-white mx-auto z-50',
+            socialButtons: 'flex flex-col-reverse gap-[16px]',
+            formFieldRow__name: 'flex flex-col',
+            card: 'p-[16px] pb-[170px]',
+            button: 'h-[44px]',
+            input: 'h-[44px]',
+          },
+        }}
+      />
     </>
   );
 }

@@ -59,10 +59,3 @@ export default async function LoginPage() {
   );
 }
 
-//   </div>
-//   <div className="px-[16px]">
-//
-//   </div>
-//   <div className="px-[16px]">
-//     <SingInProviders />
-//
