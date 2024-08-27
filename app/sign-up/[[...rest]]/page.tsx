@@ -1,7 +1,7 @@
 import { Header } from '@/components/Header';
 import { ArrowLeft } from '@/components/icons/ArrowLeft';
-import Link from 'next/link';
 import { SignUp } from '@clerk/nextjs';
+import Link from 'next/link';
 
 export default async function LoginPage() {
   return (
@@ -15,7 +15,6 @@ export default async function LoginPage() {
       </div>
       <SignUp
         appearance={{
-          variables: { colorPrimary: '#7F56D9', fontSize: '1rem', spacingUnit: '1.3rem' },
           elements: {
             rootBox: 'w-full',
             cardBox: 'border-0 shadow-none w-full  max-w-[100vw]  flex flex-col justify-between',

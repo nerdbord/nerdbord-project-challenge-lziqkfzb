@@ -15,7 +15,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: { colorPrimary: '#7F56D9', fontSize: '1rem', spacingUnit: '1.3rem' },
+      }}
+    >
       <html lang="en">
         <body
           className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-500 font-light`}
