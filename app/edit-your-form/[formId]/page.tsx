@@ -7,7 +7,6 @@ import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
 import { User } from '@/components/icons/User';
 
-
 export default async function Page({ params }: { params: { formId: string } }) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from('forms').select('*').eq('id', params.formId).single();
@@ -40,11 +39,11 @@ export default async function Page({ params }: { params: { formId: string } }) {
       <EditFormTool formFields={body} formName={name} />
 
       <nav className="b-white fixed bottom-0 w-full bg-white pb-[34px] sm:max-w-[450px]">
-        <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
+        <ul className="flex justify-between border-t border-gray px-[48px] py-[9px]">
           <li>
             <Link href="/my-forms" className="flex flex-col items-center">
               <Form isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-tight text-black/60">
+              <div className="text-center text-xs font-medium leading-tight text-gray-dark">
                 Forms
               </div>
             </Link>
@@ -52,7 +51,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
           <li>
             <Link href="/create" className="flex flex-col items-center">
               <Tool />
-              <div className="text-center text-xs font-bold leading-[18px] text-black/90">
+              <div className="text-center text-xs font-bold leading-[18px] text-black">
                 Form builder
               </div>
             </Link>
@@ -60,7 +59,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
           <li>
             <Link href="/profile" className="flex flex-col items-center">
               <User isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-[18px] text-black/60">
+              <div className="text-center text-xs font-medium leading-[18px] text-gray-dark">
                 Profile
               </div>
             </Link>

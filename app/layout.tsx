@@ -22,7 +22,7 @@ export default async function RootLayout({
     >
       <html lang="en">
         <body
-          className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-500 font-light`}
+          className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-light font-light`}
         >
           <div
             className="relative mx-auto flex min-h-screen flex-col bg-white py-[34px] sm:max-w-[450px]"
