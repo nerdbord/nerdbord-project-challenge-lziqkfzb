@@ -5,7 +5,7 @@ import { ArrowLeft } from '@/components/icons/ArrowLeft';
 import Link from 'next/link';
 import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
-import { User } from '@/components/icons/User';
+import { ProfileButton } from '@/components/ProfileButton';
 
 export default async function Page({ params }: { params: { formId: string } }) {
   const supabase = await createSupabaseServerClient();
@@ -57,12 +57,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
             </Link>
           </li>
           <li>
-            <Link href="/profile" className="flex flex-col items-center">
-              <User isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-[18px] text-gray-dark">
-                Profile
-              </div>
-            </Link>
+            <ProfileButton />
           </li>
         </ul>
       </nav>
