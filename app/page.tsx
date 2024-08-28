@@ -35,8 +35,8 @@ export default async function Home() {
           </Header>
           <section className="flex flex-col gap-[16px]">
             <div className="flex flex-col gap-[8px]">
-              <h2 className="text-center text-lg font-bold leading-7 text-black/80">Header 2</h2>
-              <h3 className="text-center text-base font-normal leading-normal text-black/40">
+              <h2 className="text-center text-lg font-bold leading-7 text-black">Header 2</h2>
+              <h3 className="text-center text-base font-normal leading-normal text-gray-dark">
                 Subheader
               </h3>
             </div>

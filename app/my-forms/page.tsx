@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
         </Header>
 
         <div className="flex flex-col gap-[16px] px-[16px]">
-          <div className="text-lg font-bold leading-7 text-black/80">Your forms</div>
+          <div className="text-lg font-bold leading-7 text-black">Your forms</div>
           {/* <ul className="flex flex-col gap-[12px]">
             {databaseRes.data.map((form) => (
               <FormCard formId={form.id} name={form.name} host={host} key={form.id} />
@@ -48,15 +48,15 @@ export default async function Page({ params }: { params: { formId: string } }) {
         </div>
       </div>
       <div>
-        <nav className="b-white fixed bottom-0 w-full border-t border-[#cfd4dc] bg-white pb-[34px] sm:max-w-[450px]">
+        <nav className="b-white fixed bottom-0 w-full border-t border-gray bg-white pb-[34px] sm:max-w-[450px]">
           <div className="px-[16px] py-[12px]">
             <LinkButton href="/create">Create a new form</LinkButton>
           </div>
-          <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
+          <ul className="flex justify-between border-t border-gray px-[48px] py-[9px]">
             <li>
               <Link href="/my-forms" className="flex flex-col items-center">
                 <Form />
-                <div className="text-center text-xs font-medium leading-tight text-black/90">
+                <div className="text-center text-xs font-medium leading-tight text-black">
                   Forms
                 </div>
               </Link>
@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
             <li>
               <Link href="/create" className="flex flex-col items-center">
                 <Tool isGrayed={true} />
-                <div className="text-center text-xs font-bold leading-[18px] text-black/60">
+                <div className="text-center text-xs font-bold leading-[18px] text-gray-dark">
                   Form builder
                 </div>
               </Link>
@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
                 <SignOutButton>
                   <div>
                     <User isGrayed={true} />
-                    <div className="text-center text-xs font-medium leading-[18px] text-black/60">
+                    <div className="text-center text-xs font-medium leading-[18px] text-gray-dark">
                       Profile
                     </div>
                   </div>

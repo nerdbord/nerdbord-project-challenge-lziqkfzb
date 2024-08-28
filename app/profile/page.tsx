@@ -23,8 +23,8 @@ export default async function ProfilePage() {
   return (
     <>
       <Header />
-      <section className="min-h-screen bg-ct-blue-600 pt-20">
-        <div className="mx-auto flex h-[20rem] max-w-4xl items-center justify-center rounded-md bg-ct-dark-100">
+      <section className="min-h-screen bg-blue-600 pt-20">
+        <div className="mx-auto flex h-[20rem] max-w-4xl items-center justify-center rounded-md bg-gray">
           <div>
             <p className="mb-3 text-center text-5xl font-semibold">Profile Page</p>
             <div className="mt-8">

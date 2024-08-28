@@ -15,10 +15,8 @@ export default async function Page() {
         </Header>
         <section className="flex flex-col gap-[16px]">
           <div className="flex flex-col gap-[8px]">
-            <h2 className="text-center text-lg font-bold leading-7 text-black/80">
-              AI form builder
-            </h2>
-            <h3 className="text-center text-base font-normal leading-normal text-black/40">
+            <h2 className="text-center text-lg font-bold leading-7 text-black">AI form builder</h2>
+            <h3 className="text-center text-base font-normal leading-normal text-gray-dark">
               Use chat to create you first form
             </h3>
           </div>
@@ -26,19 +24,17 @@ export default async function Page() {
       </div>
       <PromptInput />
       <nav>
-        <ul className="flex justify-between border-t border-[#cfd4dc] px-[48px] py-[9px]">
+        <ul className="flex justify-between border-t border-gray px-[48px] py-[9px]">
           <li>
             <Link href="/my-forms" className="flex flex-col items-center">
               <Form isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-tight text-black/60">
-                Forms
-              </div>
+              <div className="text- text-center text-xs font-medium leading-tight">Forms</div>
             </Link>
           </li>
           <li>
             <Link href="/create" className="flex flex-col items-center">
               <Tool />
-              <div className="text-center text-xs font-bold leading-[18px] text-black/90">
+              <div className="text-center text-xs font-bold leading-[18px] text-black">
                 Form builder
               </div>
             </Link>
@@ -46,7 +42,7 @@ export default async function Page() {
           <li>
             <Link href="/profile" className="flex flex-col items-center">
               <User isGrayed={true} />
-              <div className="text-center text-xs font-medium leading-[18px] text-black/60">
+              <div className="text-center text-xs font-medium leading-[18px] text-gray-dark">
                 Profile
               </div>
             </Link>
