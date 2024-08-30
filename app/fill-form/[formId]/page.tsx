@@ -3,22 +3,31 @@ import Link from 'next/link';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
 import { TextLogo } from '@/components/TextLogo';
 import { getForm } from '@/lib/supabase/supabaseRequests';
+import { auth } from '@clerk/nextjs/server';
 
 export default async function Page({ params }: { params: { formId: string } }) {
   const data = await getForm(params.formId);
+  const { userId } = auth();
 
   if (!data) {
     return <h2>Halo, coś się zepsuło i mnie nie widać</h2>; //TODO:
   }
-  const { body, name, address_to_send } = data;
+  const { body, name, address_to_send, created_by } = data;
 
   return (
     <>
       <div className="sticky top-0 z-50 bg-white px-[16px]">
         <Header>
-          <Link href="/">
-            <TextLogo />
-          </Link>
+          <div className="flex w-full justify-between">
+            <Link href="/">
+              <TextLogo />
+            </Link>
+            {userId === created_by && (
+              <Link href={'/my-forms'} className="bg-brand text-white">
+                BACK TO MY-FORMS
+              </Link>
+            )}
+          </div>
         </Header>
       </div>
       <FormGeneratedByUser

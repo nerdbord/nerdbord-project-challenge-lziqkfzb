@@ -5,7 +5,6 @@ import { LinkButton } from '@/components/LinkButton';
 import { OrBar } from '@/components/OrBar';
 import { redirect } from 'next/navigation';
 import { UserButton } from '@clerk/nextjs';
-
 import { auth } from '@clerk/nextjs/server';
 
 export default async function Home() {
