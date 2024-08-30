@@ -1,12 +1,14 @@
 import { Header } from '@/components/Header';
-import createSupabaseServerClient from '@/lib/supabase/server';
-
+import { supabaseServerClient } from '@/lib/supabase/server';
+import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
 import { TextLogo } from '@/components/TextLogo';
 
 export default async function Page({ params }: { params: { formId: string } }) {
-  const supabase = await createSupabaseServerClient();
+  const { userId } = auth();
+
+  const supabase = await supabaseServerClient();
   const { data, error } = await supabase.from('forms').select('*').eq('id', params.formId).single();
 
   if (error) {

@@ -2,25 +2,14 @@ import { Header } from '@/components/Header';
 import { TextLogo } from '@/components/TextLogo';
 import Image from 'next/image';
 import { LinkButton } from '@/components/LinkButton';
-import { Button } from '@/components/Button';
-import getUserSession from '@/lib/getUserSession';
-import createSupabaseServerClient from '@/lib/supabase/server';
 import { OrBar } from '@/components/OrBar';
 import { redirect } from 'next/navigation';
 import { UserButton } from '@clerk/nextjs';
-import Link from 'next/link';
+
 import { auth } from '@clerk/nextjs/server';
 
 export default async function Home() {
-  // const { data } = await getUserSession();
-
-  // const logoutAction = async () => {
-  //   'use server';
-  //   const supabase = await createSupabaseServerClient();
-  //   await supabase.auth.signOut();
-  // };
   const { userId } = auth();
-  console.log('user id:', userId);
 
   if (userId) {
     redirect('/my-forms');

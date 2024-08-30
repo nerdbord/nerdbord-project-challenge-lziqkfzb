@@ -3,7 +3,7 @@ import { useState, ChangeEvent, useTransition, useEffect, FormEvent } from 'reac
 import { createPortal } from 'react-dom';
 
 import { nanoid } from 'nanoid';
-import { saveForm } from '@/lib/utils';
+import { saveForm } from '@/lib/supabase/supabaseRequests';
 
 import type { InputJSONType, InputTypeAttribute } from '@/lib/types';
 import { availableInputTypeArray } from '@/lib/types';
@@ -196,7 +196,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                               <FormLabel>{input.label}</FormLabel>
                               <Checkbox isRequired={input.required} name={input.name}></Checkbox>
                               <div className="hidden justify-end gap-[8px] py-[4px] signal:flex">
-                                <button
+                                <button //TODO: let's try to put this two buttons in one reusable component
                                   type="button"
                                   onClick={() => {
                                     setNowEditedField(
