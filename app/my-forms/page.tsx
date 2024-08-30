@@ -19,10 +19,6 @@ export default async function Page() {
   const headersList = headers();
   const domain = headersList.get('host');
 
-  if (forms?.length === 0) {
-    return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
-  }
-
   return (
     <>
       <div className="bg-white px-[16px] pb-[170px]">
@@ -35,9 +31,15 @@ export default async function Page() {
         <div className="flex flex-col gap-[16px] px-[16px]">
           <div className="text-lg font-bold leading-7 text-black">Your forms</div>
           <ul className="flex flex-col gap-[12px]">
-            {forms!.map((form) => (
-              <FormCard formId={form.id} name={form.name} host={domain!} key={form.id} />
-            ))}
+            {forms?.length === 0 ? (
+              <li>
+                <h2>Halo, chyba nie masz jeszcze formów</h2>
+              </li> //TODO:
+            ) : (
+              forms!.map((form) => (
+                <FormCard formId={form.id} name={form.name} host={domain!} key={form.id} />
+              ))
+            )}
           </ul>
         </div>
       </div>
