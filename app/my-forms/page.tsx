@@ -1,34 +1,27 @@
 import { Header } from '@/components/Header';
-import createSupabaseServerClient from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { TextLogo } from '@/components/TextLogo';
 import { LinkButton } from '@/components/LinkButton';
 import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
-import { User } from '@/components/icons/User';
+
 import { FormCard } from './FormCard';
-import { UserButton, SignOutButton } from '@clerk/nextjs';
+
 import { ProfileButton } from '@/components/ProfileButton';
+import { auth } from '@clerk/nextjs/server';
+import { getUserForms } from '@/lib/supabase/supabaseRequests';
 
-export default async function Page({ params }: { params: { formId: string } }) {
-  // const headersList = headers();
-  // const host = headersList.get('host') as string;
-  // const supabase = await createSupabaseServerClient();
-  // const { data } = await supabase.auth.getUser();
+export default async function Page() {
+  const { userId } = auth();
+  const forms = await getUserForms(userId!);
 
-  // if (!data.user) {
-  //   return <div> {'WRÓĆ JAK SIĘ PODSZKOLISZ, LUB ZAłożysz KONTO ;)'}</div>;
-  // }
+  const headersList = headers();
+  const domain = headersList.get('host');
 
-  // const userID = data.user.id;
-  // console.log(userID);
-
-  // const databaseRes = await supabase.from('forms').select('*').eq('created_by', userID);
-
-  // if (!databaseRes.data) {
-  //   return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
-  // }
+  if (forms?.length === 0) {
+    return <h2>Halo, coś się zepsuło i Formów nie widać</h2>; //TODO:
+  }
 
   return (
     <>
@@ -41,11 +34,11 @@ export default async function Page({ params }: { params: { formId: string } }) {
 
         <div className="flex flex-col gap-[16px] px-[16px]">
           <div className="text-lg font-bold leading-7 text-black">Your forms</div>
-          {/* <ul className="flex flex-col gap-[12px]">
-            {databaseRes.data.map((form) => (
-              <FormCard formId={form.id} name={form.name} host={host} key={form.id} />
+          <ul className="flex flex-col gap-[12px]">
+            {forms!.map((form) => (
+              <FormCard formId={form.id} name={form.name} host={domain!} key={form.id} />
             ))}
-          </ul> */}
+          </ul>
         </div>
       </div>
       <div>
