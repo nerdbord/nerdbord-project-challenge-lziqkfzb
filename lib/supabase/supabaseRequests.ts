@@ -6,9 +6,20 @@ import { redirect } from 'next/navigation';
 
 export const getUserForms = async (userId: string) => {
   const supabase = await supabaseServerClient();
-
   const { data } = await supabase.from('forms').select('*').eq('created_by', userId);
 
+  return data;
+};
+
+export const getForm = async (formId: string) => {
+  const supabase = await supabaseServerClient();
+  const { data, error } = await supabase.from('forms').select('*').eq('id', formId).single();
+
+  if (error) {
+    console.log(error); //TODO:
+    return { body: JSON.stringify([]), name: 'NOT FOUND', address_to_send: '' };
+  }
+  
   return data;
 };
 
@@ -21,12 +32,10 @@ export const getTemporaryForm = async (formId: string) => {
     .single();
 
   if (error) {
-    if (error.code === 'PGRST116') {
-      // Nie znaleziono rekordu
-      return null; //TODO:
-    }
-    throw error;
+    console.log(error); //TODO:
+    return { body: JSON.stringify([]), name: 'NOT FOUND', address_to_send: '' };
   }
+
   return data;
 };
 
