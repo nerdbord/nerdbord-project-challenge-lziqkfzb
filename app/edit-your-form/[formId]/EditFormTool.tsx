@@ -59,7 +59,8 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     e.preventDefault();
     toast.success('Form Filled correctly');
   };
-  const handleSaveForm = () => {
+  const handleSaveForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     startTransition(async () => {
       await saveForm({ formName: editedName, fields: editedFields, addressToSend });
     });

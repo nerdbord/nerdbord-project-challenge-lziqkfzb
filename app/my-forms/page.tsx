@@ -25,7 +25,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white px-[16px] pb-[74px]">
+      <div className="bg-white px-[16px] pb-[170px]">
         <Header>
           <Link href="/">
             <TextLogo />

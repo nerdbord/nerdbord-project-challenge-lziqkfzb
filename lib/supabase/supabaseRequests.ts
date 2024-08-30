@@ -2,6 +2,7 @@
 import { supabaseServerClient } from './server';
 import { auth } from '@clerk/nextjs/server';
 import type { InputJSONType } from '../types';
+import { redirect } from 'next/navigation';
 
 export const getUserForms = async (userId: string) => {
   const supabase = await supabaseServerClient();
@@ -84,6 +85,7 @@ export const saveForm = async ({
     console.error('Error inserting form:', error);
     throw error;
   }
+  console.log(data);
 
-  return data;
+  redirect(`/fill-form/${data[0].id}`);
 };
