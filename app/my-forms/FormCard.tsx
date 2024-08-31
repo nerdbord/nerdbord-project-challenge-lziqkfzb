@@ -1,6 +1,7 @@
 'use client';
 
 import { Trash } from '@/components/icons/Trash';
+import { deleteForm } from '@/lib/supabase/supabaseRequests';
 import toast from 'react-hot-toast';
 
 interface LinkButtonProps {
@@ -22,21 +23,16 @@ export const FormCard = ({ formId, name, host }: LinkButtonProps) => {
   };
 
   const handleDelete = async () => {
-    await fetch('/api/delete-form', {
-      method: 'POST',
-      body: JSON.stringify({
-        formId,
-      }),
-    })
-      .then((response) => {
-        response.json().then((json) => {
-          toast.success('Poprawnie usunięty');
-        });
-      })
-      .catch((error) => {
-        toast.error('Formularz okazał się trudniejszy do usunięcia niż nam się wydawało');
-      });
+    const error = await deleteForm(formId);
+
+    if (error) {
+      toast.error('Somthing went wrong');
+      console.log(error);
+    } else {
+      toast.success('Form deleted properly');
+    }
   };
+
   return (
     <li
       className="flex shrink grow flex-col gap-1 rounded-lg border border-gray bg-white p-4"

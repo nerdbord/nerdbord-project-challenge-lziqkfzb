@@ -19,7 +19,7 @@ export const getForm = async (formId: string) => {
     console.log(error); //TODO:
     return { body: JSON.stringify([]), name: 'NOT FOUND', address_to_send: '' };
   }
-  
+
   return data;
 };
 
@@ -94,7 +94,16 @@ export const saveForm = async ({
     console.error('Error inserting form:', error);
     throw error;
   }
-  console.log(data);
 
   redirect(`/fill-form/${data[0].id}`);
+};
+
+export const deleteForm = async (formId: string) => {
+  const supabase = await supabaseServerClient();
+  const { error } = await supabase.from('forms').delete().eq('id', formId);
+
+  if (error) {
+    return error;
+  }
+  return null
 };
