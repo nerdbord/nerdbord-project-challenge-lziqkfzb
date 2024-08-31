@@ -7,21 +7,10 @@ import { z } from 'zod';
 import { nanoid } from 'nanoid';
 import { InputJSONType } from '../types';
 import { headers } from 'next/headers';
-import createServerClient from '../supabase/server';
+import { saveTemporaryForm } from '../supabase/supabaseRequests';
 
 export async function generateFormFromPrompt(prompt: string) {
   'use server';
-  const origin = headers().get('origin');
-  const supabase = await createServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  // if (!session) {
-  //   throw new Error('Nie jesteś zalogowany');
-  // }
-
   const { object } = await generateObject({
     model,
     temperature: 0.7,
@@ -67,46 +56,6 @@ export async function generateFormFromPrompt(prompt: string) {
     field.keyID = nanoid();
   });
 
-  const res = await fetch(`${origin}/api/save-form`, {
-    method: 'POST',
-    body: JSON.stringify({
-      formName,
-      fields,
-      addressToSend: '',
-    }),
-  });
-
-  const { data } = await res.json();
-
+  const data = await saveTemporaryForm({ formName, fields });
   redirect(`/edit-your-form/${data[0].id}`);
-}
-
-import createSupabaseServerClient from '@/lib/supabase/server';
-import { CreateUserInput, LoginUserInput } from '@/lib/user-schema';
-
-export async function signUpWithEmailAndPassword({
-  data,
-  emailRedirectTo,
-}: {
-  data: CreateUserInput;
-  emailRedirectTo?: string;
-}) {
-  const supabase = await createSupabaseServerClient();
-  const result = await supabase.auth.signUp({
-    email: data.email,
-    password: data.password,
-    options: {
-      emailRedirectTo,
-    },
-  });
-  return JSON.stringify(result);
-}
-
-export async function signInWithEmailAndPassword(data: LoginUserInput) {
-  const supabase = await createSupabaseServerClient();
-  const result = await supabase.auth.signInWithPassword({
-    email: data.email,
-    password: data.password,
-  });
-  return JSON.stringify(result);
 }

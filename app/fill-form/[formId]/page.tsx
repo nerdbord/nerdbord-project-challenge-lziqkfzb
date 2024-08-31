@@ -1,40 +1,40 @@
 import { Header } from '@/components/Header';
-import createSupabaseServerClient from '@/lib/supabase/server';
-
 import Link from 'next/link';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
 import { TextLogo } from '@/components/TextLogo';
+import { getForm } from '@/lib/supabase/supabaseRequests';
+import { auth } from '@clerk/nextjs/server';
 
 export default async function Page({ params }: { params: { formId: string } }) {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.from('forms').select('*').eq('id', params.formId).single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      // Nie znaleziono rekordu
-      return null; //TODO:
-    }
-    throw error;
-  }
+  const data = await getForm(params.formId);
+  const { userId } = auth();
 
   if (!data) {
     return <h2>Halo, coś się zepsuło i mnie nie widać</h2>; //TODO:
   }
-
-  const { body, name, address_to_send } = await data;
-
-  console.log(address_to_send, 'test');
+  const { body, name, address_to_send, created_by } = data;
 
   return (
     <>
       <div className="sticky top-0 z-50 bg-white px-[16px]">
         <Header>
-          <Link href="/">
-            <TextLogo />
-          </Link>
+          <div className="flex w-full justify-between">
+            <Link href="/">
+              <TextLogo />
+            </Link>
+            {userId === created_by && (
+              <Link href={'/my-forms'} className="bg-brand text-white">
+                BACK TO MY-FORMS
+              </Link>
+            )}
+          </div>
         </Header>
       </div>
-      <FormGeneratedByUser formFields={body} formName={name} addressToSend={address_to_send} />
+      <FormGeneratedByUser
+        formFields={JSON.parse(body)}
+        formName={name}
+        addressToSend={address_to_send}
+      />
     </>
   );
 }

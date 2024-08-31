@@ -23,10 +23,10 @@ export const Button = ({
       className={clsx(
         'flex shrink grow basis-0 items-center justify-center gap-2 rounded-lg border py-[12px] shadow',
         {
-          'border-brand bg-brand disabled:border-[#E9D7FE] disabled:bg-[#E9D7FE]':
+          'border-brand bg-brand disabled:border-brand-disabled disabled:bg-brand-disabled':
             variant === 'filled',
         },
-        { 'border-[#D0D5DD] bg-white text-gray-700': variant === 'white' },
+        { 'border-gray bg-white text-gray': variant === 'white' },
       )}
       disabled={disabled}
       type={type}
@@ -38,7 +38,7 @@ export const Button = ({
           {
             'text-white': variant === 'filled',
           },
-          { 'text-[#344054] disabled:text-[#D0D5DD]': variant === 'white' },
+          { 'border-gray-light text-jeans-dark disabled:text-gray': variant === 'white' },
         )}
       >
         {children}

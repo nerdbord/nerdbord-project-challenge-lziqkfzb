@@ -28,7 +28,7 @@ export const PromptInput = () => {
     <>
       <div>
         <div className="mb-[16px] overflow-x-scroll px-[14px]">
-          <ul className="flex w-max items-baseline divide-x divide-solid divide-[#cfd4dc] overflow-clip rounded-lg border border-[#cfd4dc] text-sm font-semibold leading-tight text-[#1d2838] children:flex children:h-[40px] children:items-center children:justify-center children:bg-[#f3f3f3]">
+          <ul className="flex w-max items-baseline divide-x divide-solid divide-gray overflow-clip rounded-lg border border-gray text-sm font-semibold leading-tight text-jeans-dark children:flex children:h-[40px] children:items-center children:justify-center children:bg-gray-light">
             <li
               className="w-[136px]"
               onClick={() => {
@@ -64,7 +64,7 @@ Let them rate on a scale of 1-5`);
           onSubmit={onSubmit}
         >
           <input
-            className="flex shrink grow basis-0 items-center justify-start self-stretch truncate rounded-lg border border-[#cfd4dc] bg-white px-3.5 py-2.5 text-base font-normal leading-normal text-[#0f1728] shadow placeholder:text-[#667084]"
+            className="flex shrink grow basis-0 items-center justify-start self-stretch truncate rounded-lg border border-gray bg-white px-3.5 py-2.5 text-base font-normal leading-normal text-black shadow placeholder:text-jeans-light"
             value={prompt}
             onChange={handlePromptChange}
             disabled={isPending}

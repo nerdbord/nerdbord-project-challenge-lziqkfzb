@@ -3,7 +3,7 @@ import { useState, ChangeEvent, useTransition, useEffect, FormEvent } from 'reac
 import { createPortal } from 'react-dom';
 
 import { nanoid } from 'nanoid';
-import { saveForm } from '@/lib/utils';
+import { saveForm } from '@/lib/supabase/supabaseRequests';
 
 import type { InputJSONType, InputTypeAttribute } from '@/lib/types';
 import { availableInputTypeArray } from '@/lib/types';
@@ -59,7 +59,8 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
     e.preventDefault();
     toast.success('Form Filled correctly');
   };
-  const handleSaveForm = () => {
+  const handleSaveForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     startTransition(async () => {
       await saveForm({ formName: editedName, fields: editedFields, addressToSend });
     });
@@ -196,7 +197,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                               <FormLabel>{input.label}</FormLabel>
                               <Checkbox isRequired={input.required} name={input.name}></Checkbox>
                               <div className="hidden justify-end gap-[8px] py-[4px] signal:flex">
-                                <button
+                                <button //TODO: let's try to put this two buttons in one reusable component
                                   type="button"
                                   onClick={() => {
                                     setNowEditedField(
@@ -683,17 +684,17 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
         createPortal(
           <>
             <div
-              className="absolute left-0 top-0 h-full w-full bg-[#0f1728]/70 backdrop-blur-lg"
+              className="absolute left-0 top-0 h-full w-full bg-black-modal backdrop-blur-lg"
               onClick={() => setIsEditNameModalOpen(false)}
             ></div>
             <div className="fixed bottom-0 mx-auto flex max-h-[90vh] min-h-[65vh] w-full flex-col overflow-auto rounded-tl-3xl rounded-tr-3xl bg-white sm:max-w-[450px]">
               <div className="flex justify-center pb-[12px] pt-[8px]">
                 <div
-                  className="h-[5px] w-[56px] rounded-[10px] bg-[#cccccc]"
+                  className="h-[5px] w-[56px] rounded-[10px] bg-gray"
                   onClick={() => setIsEditNameModalOpen(false)}
                 ></div>
               </div>
-              <div className="mb-[24px] inline-flex items-center justify-center border-b border-[#cccccc] pb-[16px] pt-[8px] text-center text-lg font-bold leading-7 text-black/90">{`I'm a modal dialog`}</div>
+              <div className="mb-[24px] inline-flex items-center justify-center border-b border-gray pb-[16px] pt-[8px] text-center text-lg font-bold leading-7 text-black">{`I'm a modal dialog`}</div>
               <div className="flex h-full w-full flex-grow flex-col justify-between pb-[34px]">
                 <div className="px-[16px]">
                   <InputField
@@ -703,7 +704,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                     onChange={handleFormNameChange}
                   />
                 </div>
-                <div className="flex w-full border-t border-[#cccccc] px-[16px] py-[12px]">
+                <div className="flex w-full border-t border-gray px-[16px] py-[12px]">
                   <BrandButton variant="filled" onClick={() => setIsEditNameModalOpen(false)}>
                     Apply changes
                   </BrandButton>
@@ -718,23 +719,23 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
         createPortal(
           <>
             <div
-              className="absolute left-0 top-0 h-full w-full bg-[#0f1728]/70 backdrop-blur-lg"
+              className="absolute left-0 top-0 h-full w-full bg-black-modal backdrop-blur-lg"
               onClick={() => setIsModalOpen(false)}
             ></div>
             <div className="fixed bottom-0 mx-auto flex max-h-[90vh] min-h-[65vh] w-full flex-col overflow-auto rounded-tl-3xl rounded-tr-3xl bg-white sm:max-w-[450px]">
               <div className="flex justify-center pb-[12px] pt-[8px]">
                 <div
-                  className="h-[5px] w-[56px] rounded-[10px] bg-[#cccccc]"
+                  className="h-[5px] w-[56px] rounded-[10px] bg-gray"
                   onClick={() => setIsModalOpen(false)}
                 ></div>
               </div>
-              <div className="mb-[24px] inline-flex items-center justify-center border-b border-[#cccccc] pb-[16px] pt-[8px] text-center text-lg font-bold leading-7 text-black/90">{`I'm a modal dialog`}</div>
+              <div className="mb-[24px] inline-flex items-center justify-center border-b border-gray pb-[16px] pt-[8px] text-center text-lg font-bold leading-7 text-black">{`I'm a modal dialog`}</div>
               <div className="flex h-full w-full flex-grow flex-col justify-between pb-[34px]">
                 <div className="px-[16px]">
                   {nowEditedField && (
                     <div key={nowEditedField.keyID} className="flex flex-col gap-[12px]">
                       <textarea
-                        className="h-[4em] w-full resize-none rounded-lg border border-[#e4e7ec] p-[0.3em]"
+                        className="h-[4em] w-full resize-none rounded-lg border border-gray p-[0.3em]"
                         defaultValue={nowEditedField.label}
                         onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                           handleInputLabelChange(e, nowEditedField.keyID)
@@ -832,7 +833,7 @@ export const EditFormTool = ({ formFields, formName }: EditFormToolProps) => {
                   )}
                 </div>
               </div>
-              <div className="flex w-full border-t border-[#cccccc] px-[16px] py-[12px]">
+              <div className="flex w-full border-t border-gray px-[16px] py-[12px]">
                 <BrandButton variant="filled" onClick={() => setIsModalOpen(false)}>
                   Apply changes
                 </BrandButton>
