@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/del-temp-forms",
-      "schedule": "* * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
