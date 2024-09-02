@@ -4,12 +4,15 @@ const isPublicRoute = createRouteMatcher([
   '/sign-in(.*)',
   '/sign-up(.*)',
   '/',
-  '/create(.*), "/policy(.*)',
+  '/create(.*)',
+  '/policy(.*)',
+  '/api/del-temp-forms(.*)',
 ]);
 
 export default clerkMiddleware((auth, req) => {
-  if (!auth().userId && !isPublicRoute(req)) {
+  if (!isPublicRoute(req) && !auth().userId) {
     // Add custom logic to run before redirecting
+    console.log('Nieautyrozowany dostep');
 
     return auth().redirectToSignIn();
   }
