@@ -105,7 +105,7 @@ export const deleteForm = async (formId: string) => {
   if (error) {
     return error;
   }
-  return null
+  return null;
 };
 
 export const deleteOldTemporaryForms = async () => {
@@ -113,7 +113,7 @@ export const deleteOldTemporaryForms = async () => {
   const { error } = await supabase
     .from('temporary_forms')
     .delete()
-    .lt('created_at', new Date(Date.now() - 10 * 60 * 1000).toISOString());
+    .lt('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
   if (error) {
     return error;
