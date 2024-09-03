@@ -1,7 +1,7 @@
 import { Header } from '@/components/Header';
 import Link from 'next/link';
 import { FormGeneratedByUser } from '@/components/FormGeneratedByUser';
-import { TextLogo } from '@/components/TextLogo';
+import { Logotype } from '@/components/icons/Logotype';
 import { getForm } from '@/lib/supabase/supabaseRequests';
 import { auth } from '@clerk/nextjs/server';
 
@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { formId: string } }) {
         <Header>
           <div className="flex w-full justify-between">
             <Link href="/">
-              <TextLogo />
+              <Logotype />
             </Link>
             {userId === created_by && (
               <Link href={'/my-forms'} className="bg-brand text-white">

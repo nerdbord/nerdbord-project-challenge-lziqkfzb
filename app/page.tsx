@@ -1,11 +1,11 @@
 import { Header } from '@/components/Header';
-import { TextLogo } from '@/components/TextLogo';
 import Image from 'next/image';
 import { LinkButton } from '@/components/LinkButton';
 import { OrBar } from '@/components/OrBar';
 import { redirect } from 'next/navigation';
 import { UserButton } from '@clerk/nextjs';
 import { auth } from '@clerk/nextjs/server';
+import { Logotype } from '@/components/icons/Logotype';
 
 export default async function Home() {
   const { userId } = auth();
@@ -19,13 +19,15 @@ export default async function Home() {
       <div className="flex h-full flex-grow flex-col justify-between">
         <div className="px-[16px]">
           <Header>
-            <TextLogo />
+            <Logotype />
           </Header>
-          <section className="flex flex-col gap-[16px]">
+          <section className="flex flex-col gap-[32px]">
             <div className="flex flex-col gap-[8px]">
-              <h2 className="text-center text-lg font-bold leading-7 text-black">Header 2</h2>
+              <h2 className="text-center text-lg font-bold leading-7 text-black">
+                Explore Smartform
+              </h2>
               <h3 className="text-center text-base font-normal leading-normal text-gray-dark">
-                Subheader
+                And integrate it into your daily work
               </h3>
             </div>
             <div className="flex justify-center">

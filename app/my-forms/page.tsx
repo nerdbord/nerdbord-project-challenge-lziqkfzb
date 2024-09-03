@@ -1,7 +1,8 @@
 import { Header } from '@/components/Header';
 import { headers } from 'next/headers';
 import Link from 'next/link';
-import { TextLogo } from '@/components/TextLogo';
+
+import { Logotype } from '@/components/icons/Logotype';
 import { LinkButton } from '@/components/LinkButton';
 import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
@@ -23,8 +24,8 @@ export default async function Page() {
     <>
       <div className="bg-white px-[16px] pb-[170px]">
         <Header>
-          <Link href="/">
-            <TextLogo />
+          <Link href="/" >
+            <Logotype />
           </Link>
         </Header>
 
