@@ -29,7 +29,7 @@ export default async function Page() {
         </Link>
       </Header>
 
-      <div className="flex h-full flex-grow flex-col items-center justify-between bg-white px-[16px] pb-[170px]">
+      <div className="flex h-full flex-grow flex-col items-center bg-white px-[16px] pb-[170px]">
         {forms?.length === 0 ? (
           <>
             <div>
@@ -48,9 +48,15 @@ export default async function Page() {
             <h2 className="mb-[16px] self-start text-left text-lg font-bold leading-7 text-black">
               {'Your forms'}
             </h2>
-            <ul className="flex flex-col gap-[12px]">
+            <ul className="flex w-full flex-col gap-[12px]">
               {forms!.map((form) => (
-                <FormCard formId={form.id} name={form.name} host={domain!} key={form.id} />
+                <FormCard
+                  formId={form.id}
+                  name={form.name}
+                  host={domain!}
+                  key={form.id}
+                  prompt={form.prompt}
+                />
               ))}
             </ul>
           </>
