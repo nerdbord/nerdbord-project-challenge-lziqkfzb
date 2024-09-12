@@ -6,7 +6,6 @@ import { model } from '@/lib/ai_sdk/openai';
 import { z } from 'zod';
 import { nanoid } from 'nanoid';
 import { InputJSONType } from '../types';
-import { headers } from 'next/headers';
 import { saveTemporaryForm } from '../supabase/supabaseRequests';
 
 export async function generateFormFromPrompt(prompt: string) {
