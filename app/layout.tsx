@@ -25,7 +25,7 @@ export default async function RootLayout({
           className={`${inter.className} ${rowdies.variable} ${permanentMarker.variable} ${inter.variable} bg-gray-light font-light`}
         >
           <div
-            className="relative mx-auto flex min-h-screen flex-col bg-white py-[34px] sm:max-w-[450px]"
+            className="relative mx-auto flex min-h-screen flex-col bg-white pb-[34px] sm:max-w-[450px]"
             id="modalRoot"
           >
             {children}

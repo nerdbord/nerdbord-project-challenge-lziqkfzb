@@ -6,13 +6,11 @@ import Link from 'next/link';
 export default async function LoginPage() {
   return (
     <>
-      <div className="z px-[16px]">
-        <Header>
-          <Link href="/">
-            <ArrowLeft />
-          </Link>
-        </Header>
-      </div>
+      <Header>
+        <Link href="/">
+          <ArrowLeft />
+        </Link>
+      </Header>
       <SignUp
         appearance={{
           elements: {

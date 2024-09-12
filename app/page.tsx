@@ -17,11 +17,11 @@ export default async function Home() {
   return (
     <>
       <div className="flex h-full flex-grow flex-col justify-between">
-        <div className="px-[16px]">
+        <div>
           <Header>
             <Logotype />
           </Header>
-          <section className="flex flex-col gap-[32px]">
+          <section className="flex flex-col gap-[32px] px-[16px]">
             <div className="flex flex-col gap-[8px]">
               <h2 className="text-center text-lg font-bold leading-7 text-black">
                 Explore Smartform

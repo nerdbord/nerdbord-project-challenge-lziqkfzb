@@ -2,7 +2,7 @@ import { Header } from '@/components/Header';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
-import { Logotype } from '@/components/icons/Logotype';
+import { Logo } from '@/components/icons/Logo';
 import { LinkButton } from '@/components/LinkButton';
 import { Form } from '@/components/icons/Form';
 import { Tool } from '@/components/icons/Tool';
@@ -12,6 +12,7 @@ import { FormCard } from './FormCard';
 import { ProfileButton } from '@/components/ProfileButton';
 import { auth } from '@clerk/nextjs/server';
 import { getUserForms } from '@/lib/supabase/supabaseRequests';
+import Image from 'next/image';
 
 export default async function Page() {
   const { userId } = auth();
@@ -22,27 +23,38 @@ export default async function Page() {
 
   return (
     <>
-      <div className="bg-white px-[16px] pb-[170px]">
-        <Header>
-          <Link href="/" >
-            <Logotype />
-          </Link>
-        </Header>
+      <Header>
+        <Link href="/">
+          <Logo />
+        </Link>
+      </Header>
 
-        <div className="flex flex-col gap-[16px] px-[16px]">
-          <div className="text-lg font-bold leading-7 text-black">Your forms</div>
-          <ul className="flex flex-col gap-[12px]">
-            {forms?.length === 0 ? (
-              <li>
-                <h2>Halo, chyba nie masz jeszcze formów</h2>
-              </li> //TODO:
-            ) : (
-              forms!.map((form) => (
+      <div className="flex h-full flex-grow flex-col items-center justify-between bg-white px-[16px] pb-[170px]">
+        {forms?.length === 0 ? (
+          <>
+            <div>
+              <h2 className="text-center text-lg font-bold leading-7 text-black">
+                {'You don’t have any forms yet'}
+              </h2>
+              <h3 className="text-center text-base font-normal leading-normal text-gray-dark">
+                Start now!
+              </h3>
+            </div>
+            <Image src={'/form.png'} width={308} height={290} alt="" />
+            <div></div>
+          </>
+        ) : (
+          <>
+            <h2 className="mb-[16px] self-start text-left text-lg font-bold leading-7 text-black">
+              {'Your forms'}
+            </h2>
+            <ul className="flex flex-col gap-[12px]">
+              {forms!.map((form) => (
                 <FormCard formId={form.id} name={form.name} host={domain!} key={form.id} />
-              ))
-            )}
-          </ul>
-        </div>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
       <div>
         <nav className="b-white fixed bottom-0 w-full border-t border-gray bg-white pb-[34px] sm:max-w-[450px]">

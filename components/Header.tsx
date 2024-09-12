@@ -5,5 +5,9 @@ interface HeaderProps {
 }
 
 export const Header = ({ children }: HeaderProps) => {
-  return <div className="mb-[16px] flex h-[44px] items-center">{children}</div>;
+  return (
+    <div className="py-4px mb-[16px] mt-[12px] flex h-[44px] items-center px-[16px]">
+      {children}
+    </div>
+  );
 };
